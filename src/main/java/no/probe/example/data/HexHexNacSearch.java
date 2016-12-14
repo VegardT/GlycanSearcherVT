@@ -16,21 +16,30 @@ import org.apache.commons.math.linear.RealMatrix;
 
 /**
  *
- * @author Probe This is a methode inspired by sweetNet workflow.
+ * This class calculates the GGratio as described in the article SweetNET: A
+ * Bioinformatics Workflow for Glycopeptide MS/MS Spectral Analysis.
  *
- *
- *
+ * @author Vegard Tveit
  */
 public class HexHexNacSearch {
 
-    public HexHexNacSearch() {
-
-    }
-
+//    public HexHexNacSearch() {
+//
+//    }
+    /**
+     * 
+     */
+     
     public static ArrayList<double[]> massListWithGlycan = new ArrayList();
     public static HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 //    private HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 
+    /**
+     *Calculates ggRatio for the spectrum and stores the distribution of galNAc/glcNAc in a hashmap.
+     *
+     * @param dd is the double array containing the values of the spectrum
+     * @return boolean corresponding to true if the GGratio is calculatable
+     */
     public boolean HexHexNacSearch(double[][] dd) {
         if (galNacGlcNacMap.isEmpty()) {
             galNacGlcNacMap.put("GalNac", 0);
@@ -132,11 +141,16 @@ public class HexHexNacSearch {
         map.clear();
 
 //        System.out.println(galNacGlcNacMap);
-
         return hexHexNAc;
 
     }
 
+    /**
+     * Calculates the GGratio for the spectrum and returns the a string with the name for the the suggested type of hexNAc
+     *
+     * @param dd is the double array containing the values of the spectrum
+     * @return hexHexNAc string of GalNAc or GlcNAc
+     */
     public String HexHexNacStructure(double[][] dd) {
 
         String hexHexNAc = null;

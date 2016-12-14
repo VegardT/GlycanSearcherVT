@@ -21,28 +21,19 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import no.probe.example.graphics.components.GlycanTableModel;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import no.probe.example.calculation.ExtensiveGlycanSearch;
-import no.probe.example.calculation.GlycanSearch;
 import no.probe.example.calculation.Graph;
 import no.probe.example.data.FileData;
-import no.probe.example.data.GlycanData;
 import no.probe.example.data.GlycanSearcherUtilities;
 import no.probe.example.data.GraphOutputSearch;
-import no.probe.example.data.OutputSearchData;
 import no.probe.example.graphics.components.SaccharideTableModel;
 import org.apache.commons.collections15.Transformer;
 import org.apache.commons.math.linear.MatrixUtils;
 import org.apache.commons.math.linear.RealMatrix;
 import org.jgrapht.DirectedGraph;
-import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
  *

@@ -219,27 +219,27 @@ public class GlycanTableModel extends DefaultTableModel {
                 return "Spectrum title";
             case 1:
 
-                return "Vertexes";
+                return "Vertices";
             case 2:
 
-                return "Largest Mass";
+                return "Largest m/z";
             case 3:
 
-                return "Largest found mass";
+                return "Largest generated m/z";
             case 4:
 
-                return "Peaks";
+                return "number of Peaks";
             case 5:
 
                 return "Saccharides";
 
             case 6:
 
-                return "Precursor Mass";
+                return "Precursor Mass(DA)";
 
             case 7:
 
-                return "Glycan Mass";
+                return "Glycan Mass(DA)";
 
         }
         return null;

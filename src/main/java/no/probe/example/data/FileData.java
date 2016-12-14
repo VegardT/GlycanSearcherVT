@@ -43,6 +43,18 @@ public class FileData {
 
     }
 
+    /**
+     * 
+     * 
+     * @param selectedFile
+     * @param fileName
+     * @param threshold
+     * @return
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     * @throws MzMLUnmarshallerException 
+     */
     public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
 
         nrOfSpectra = 0;

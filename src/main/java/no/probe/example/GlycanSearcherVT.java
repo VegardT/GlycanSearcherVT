@@ -28,6 +28,13 @@ public class GlycanSearcherVT {
 //    private ParameterData parameterData;
 //    private FileData fileData;
 
+    /**
+     * 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ClassNotFoundException
+     * @throws MzMLUnmarshallerException 
+     */
     public void StartGUI() throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
 
        

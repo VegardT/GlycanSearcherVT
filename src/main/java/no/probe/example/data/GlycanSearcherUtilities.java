@@ -125,7 +125,7 @@ public class GlycanSearcherUtilities {
         glycanMap.put("Neu5Ac+", 292.103);
         glycanMap.put("Neu5Ac", 309.0);
         glycanMap.put("Fucose", 147.058);
-        glycanMap.put("GlcA", 176.0);
+//        glycanMap.put("GlcA", 176.0);
         glycanMap.put("Xylose", 132.0);
         glycanMap.put("tag-oxGal", 406.1643);
         glycanMap.put("tag fragment [-H2O]", 231.1162);
