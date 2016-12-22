@@ -27,10 +27,6 @@ import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.ClassBasedEdgeFactory;
 import org.jgrapht.graph.DirectedMultigraph;
 
-/**
- *
- * @author Probe
- */
 public class Graph {
 
     public Graph() {
@@ -38,7 +34,7 @@ public class Graph {
     }
 
 
-    public void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException {
+    public void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException, InterruptedException {
 
         GlycanSearcherUtilities utilities = new GlycanSearcherUtilities();
 
@@ -54,7 +50,6 @@ public class Graph {
 
          double largestMass = (precursorMass - maxMz );
         
-//        double largestMass = 800;
         double mass = 0;
         int n = 0;
 
@@ -114,7 +109,6 @@ public class Graph {
 
                         double deltaCheck = delta1 + delta2;
 
-//                        System.out.println(one + " " + two + " " + three + " " + four);
                         if (deltaCheck <= largestMass) {
                             if (two > three - 1.0 && two < three + 1.0) {
                                 String startValue = Double.toString(lastValue[0]);
@@ -130,7 +124,6 @@ public class Graph {
 
                                     testGraph.addVertex(newVertex);
 
-//                                testGraph.addEdge(s, newVertex);
                                     testGraph.addEdge(v, newVertex, new GlycoEdge(v, newVertex, delta));
                                     newVertexList.add(newVertex);
 

@@ -31,11 +31,7 @@ public class OutputSearchData {
     public void OutputSearchData(LinkedHashMap<Double, Integer> hitMap,LinkedHashMap<String, Double> glycanMap) throws IOException {
 
         double peaks = FileData.peaks; //Amounts of peaks the mgf file contains
-//        LinkedHashMap<String, Double> glycanMap = GlycanData.getMassGalMap(); //Hashmap containing the names and masses searched for
         Set<String> names1 = glycanMap.keySet(); // Saccharide names
-//        ArrayList hitsDifference = new ArrayList(); // ArrayList for storage off nr off hits for each saccharide from difference search
-//        ArrayList<Double> percentHits = new ArrayList();  //ArrayList for storage offpercent hits for each saccharide from difference search
-//        ArrayList<Double> SaccharideMasses = new ArrayList(); // ArrayList for storing the mass values for calculations
         int totalAmountPeaks = 0;
         names = new ArrayList<String>(names1);
         for (Map.Entry<Double, Integer> d : hitMap.entrySet()) {

@@ -44,26 +44,7 @@ public class GlycanSearcherUtilities {
         return nameArray;
     }
 
-//      public String GetNamesCombinations(String s) {
-//
-//        String[] vertexInformation = s.split("\\_");
-//        //0 = Name and peak/loss
-//        //1 = Mass of saccharide/glycan
-//        //2 = Intensity/Neutral Loss
-//
-//        String names = vertexInformation[0];
-//        String[] split = names.split("\\|");
-//        String[] nameArray = new String[split.length];
-//
-//        for (int j = 0; j < split.length; j = j + 1) {
-//            String ss = split[j];
-//            String name = ss.replaceAll("\\(.*\\)", "");
-//            nameArray[j] = name;
-//        }
-//        
-//
-//        return nameCombination;
-//    }
+
     public double GetTotalMass(String s) {
         String[] vertexInformation = s.split("\\_");
         String ss = null;
@@ -89,7 +70,6 @@ public class GlycanSearcherUtilities {
 
         HashMap<String, double[]> lossMap = new HashMap();
 
-//        System.out.println(s);
         ArrayList<double[]> lossList = new ArrayList();
 
         String[] n = s.split("\\_");
@@ -131,7 +111,6 @@ public class GlycanSearcherUtilities {
         glycanMap.put("tag fragment [-H2O]", 231.1162);
         glycanMap.put("tag fragment", 249.1267);
 
-//        Set keySet = glycanMap.keySet();
         for (Object o : glycanMap.keySet()) {
             String check = o.toString();
             if (check.equals(firstName)) {
@@ -172,7 +151,6 @@ public class GlycanSearcherUtilities {
             String names = information[0];
 
             String[] nameList = names.split("\\|");
-//            String name = names[information.length - 1];
 
             for (String ss : nameList) {
                 String substring = ss.substring(ss.indexOf("(") + 1, ss.indexOf(")"));
@@ -233,14 +211,7 @@ public class GlycanSearcherUtilities {
                         visualisationGraph.addEdge("GalNac", name, name);
                     }
 
-                } /*else if () {
-                
-                 }
-                
-                 } else if () {
-                
-                 */
-
+                }
             } else {
 
             }
@@ -277,7 +248,6 @@ public class GlycanSearcherUtilities {
     }
 
     public boolean HasSameChar(String s1, String s2) {
-//        boolean identical = false;
         for (char c : s1.toCharArray()) {
             if (s2.indexOf(c) < 0) {
                 return false;

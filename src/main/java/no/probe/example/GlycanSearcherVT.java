@@ -22,11 +22,6 @@ public class GlycanSearcherVT {
     private javax.swing.JTextField specField;
 
     private FileReaderDialog dialog;
-//    private GlycanData glycanData;
-//    private GlycanSearch glycanSearch;
-//    private OutputSearchData outputSearchData;
-//    private ParameterData parameterData;
-//    private FileData fileData;
 
     public void StartGUI() throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
 
@@ -37,10 +32,6 @@ public class GlycanSearcherVT {
 
     }
 
-//   private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) {
-//       specField.setText("Sugars are cool");
-//       
-//   }
     /**
      * @param args the command line arguments
      */

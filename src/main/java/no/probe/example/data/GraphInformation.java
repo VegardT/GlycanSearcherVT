@@ -48,7 +48,6 @@ public class GraphInformation {
         LinkedHashMap<String, Integer> glycoInformation = new LinkedHashMap();
         String combinationData = "";
 
-//        for (DirectedGraph<String, Graph.GlycoEdge> g : glycanGraphList) {
         for (int i = 0; i < spectrum.size(); i = i + 1) {
             String test = "";
             DirectedGraph<String, Graph.GlycoEdge> g = glycanGraphList.get(i);
@@ -56,7 +55,6 @@ public class GraphInformation {
             String spectrumTitle = ms.getSpectrumTitle();
 
             Set<String> vertexSet = g.vertexSet();
-//            names.clear();
 
             for (String s : vertexSet) {
 
@@ -72,7 +70,6 @@ public class GraphInformation {
             }
 
             for (String key : names) {
-//                System.out.println(key + ": " + Collections.frequency(names, key));
                 int frequency = Collections.frequency(names, key);
                 glycoInformation.put(key, frequency);
 

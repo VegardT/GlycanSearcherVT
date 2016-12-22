@@ -29,7 +29,6 @@ public class HexHexNacSearch {
 
     public static ArrayList<double[]> massListWithGlycan = new ArrayList();
     public static HashMap<String, Integer> galNacGlcNacMap = new HashMap();
-//    private HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 
     public boolean HexHexNacSearch(double[][] dd) {
         if (galNacGlcNacMap.isEmpty()) {
@@ -52,11 +51,8 @@ public class HexHexNacSearch {
         ArrayList<Double> int144 = new ArrayList();
         ArrayList<Double> int168 = new ArrayList();
 
-//        HashMap<String, Integer> galNacGlcNacMap = new HashMap();
         double[] hexNacIonSeries = GlycanData.getHexNacIonSeries();
 
-//        Set<Double> intensity = new HashSet();
-//        Set<Double> mass = new HashSet();
         LinkedHashMap<Double, Double> map = new LinkedHashMap();
 
         if (dd[1].length >= 2) {
@@ -105,11 +101,8 @@ public class HexHexNacSearch {
 
                 }
 
-//                System.out.println(map);
                 double GGRatio = ((Collections.max(int138) + (Collections.max(int168))) / (Collections.max(int126) + (Collections.max(int144))));
 
-//                    massListWithGlycan.add(mMass);
-//                    spectraWithGlycan.add(mMass);
                 hexHexNAc = true;
 
                 if (GGRatio > 1) { //ratio is dependent on energy levels of instrument
@@ -131,7 +124,6 @@ public class HexHexNacSearch {
         values.clear();
         map.clear();
 
-//        System.out.println(galNacGlcNacMap);
 
         return hexHexNAc;
 
@@ -157,8 +149,6 @@ public class HexHexNacSearch {
 
         double[] hexNacIonSeries = GlycanData.getHexNacIonSeries();
 
-//        Set<Double> intensity = new HashSet();
-//        Set<Double> mass = new HashSet();
         LinkedHashMap<Double, Double> map = new LinkedHashMap();
 
         if (dd[1].length >= 2) {
@@ -207,11 +197,8 @@ public class HexHexNacSearch {
 
                 }
 
-//                System.out.println(map);
                 double GGRatio = ((Collections.max(int138) + (Collections.max(int168))) / (Collections.max(int126) + (Collections.max(int144))));
 
-//                    massListWithGlycan.add(mMass);
-//                    spectraWithGlycan.add(mMass);
                 if (GGRatio > 1) { //ratio is dependent on energy levels of instrument
 
                     hexHexNAc = "GlcNAc";
@@ -229,8 +216,6 @@ public class HexHexNacSearch {
         values.clear();
         map.clear();
 
-//        System.out.println(galNacGlcNacMap);
-//        return hexHexNAc;
         return hexHexNAc;
 
     }

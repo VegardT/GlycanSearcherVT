@@ -18,57 +18,14 @@ public class GlycanData {
     public static LinkedHashMap<String, Double> getMassGalMap() {
 
         LinkedHashMap<String, Double> glycanMap = new LinkedHashMap();
-//
-//        glycanMap.put(" DeoxyPent", 116.04);
         glycanMap.put("Xylose", 132.0423);
-//         glycanMap.put(" DeoxyPent-OH", 116.04-17.0);
-//        glycanMap.put(" pentose", 132.04226);
-//         glycanMap.put(" pentose-OH", 132.04226-17.0);
-////        glycanMap.put("Glucose-OH", 146.05791 - 17);
-//        glycanMap.put("Glucose|", 146.05791);
-
-//        
         glycanMap.put("Hexose", 162.0528);
-
-//        glycanMap.put("Hexose-H", 162.0528 - 1);
-//        glycanMap.put("Hexose-OH ", 162.05282 - 17.0);
-//        glycanMap.put("Hexose-2H", 160.04);
-//        glycanMap.put("Hexose+H", 163.0);
-
         glycanMap.put("Fucose", 146.0579 );
-
-//        glycanMap.put("GlcA", 176.0);
-//        glycanMap.put(" GalNac - 2H2O", 168.066);
-//        glycanMap.put("Mannose", 180.06339);
-//
-//        glycanMap.put("Mannose-H", 180.06339 - 1);
-//        glycanMap.put("Mannose-OH", 180.06339 - 17.0);
-//        glycanMap.put(" GalNac-OH", 203.07937 - 17.0);
         glycanMap.put("HexNAc", 204.0866);
 
         glycanMap.put("HexNAc+", 205.0866);
-//        
-//////        glycanMap.put(" 229.06", 229.06);
-//////        glycanMap.put(" 229.06 H+", 230.06);
-//////        glycanMap.put(" 229.06 H+ -H2O", 212.06);
-//////        glycanMap.put(" 229.06 -H2O", 211.06);
-//        glycanMap.put("Neu5Ac-H2O", 273.05);
         glycanMap.put("Neu5Ac-H2O", 274.0794);
-//        glycanMap.put("Neu5Ac", 290.08);
         glycanMap.put("Neu5Ac", 291.0954);
-//        glycanMap.put("Neu5Ac+", 292.103);
-//        glycanMap.put("Neu5Ac+H2O", 292.103 + 18);
-//        glycanMap.put(" NeuNAc+", 298.0);
-
-//        glycanMap.put("Neu5Ac", 309.0);
-////        glycanMap.put(" modified sialic acid", 474.18);
-////        glycanMap.put(" 475,18 H+", 475.18);
-////        glycanMap.put(" 456.18 -H2O", 456.18);
-////        glycanMap.put(" 457.18 H+ -H2O", 457.18);
-//        glycanMap.put("HexGalNAc|", 366.140);
-//        glycanMap.put("HexHexNacOME", 383.337);
-////        
-//        glycanMap.put("HexHexNAcNeuAc|", 657.2354);
 
         return glycanMap;
 
@@ -139,22 +96,14 @@ public class GlycanData {
 
         LinkedHashMap<String, Double> taggedIons = new LinkedHashMap();
 
-//        taggedIons.put("tag-oxNeu5Ac-Hex-HexNAc", 840.3179);
-//        taggedIons.put("tag-oxGal-HexNAc", 609.2436);
-//        taggedIons.put("oxNeu5Ac-Hex-HexNAc", 595.1981);
         taggedIons.put("tag-oxNeu5Ac", 475.1857);
         taggedIons.put("tag-oxNeu5Ac [-H2O]", 457.1751);
         taggedIons.put("tag-oxGal", 406.1643);
-//        taggedIons.put("Hex-HexNAc", 366.1395);
-//        taggedIons.put("ox-Gal-HexNAc", 364.1238);
         taggedIons.put("oxNeu5Ac",230.0659);
         taggedIons.put("tag-sugar fragment", 304.1326);
         taggedIons.put("HexNAc", 204.0866);
         taggedIons.put("oxGal", 161.0445);
-        
-        
-   
-        
+
         return taggedIons;
     }
     
@@ -178,7 +127,6 @@ public class GlycanData {
 
     public static double[] getHexNacIonSeries() {
 
-//        double[] hexNAc = {204.0, 180.0, 168.0, 138.0, 144.0, 126.0, 96.0};
         double[] hexNAc = {168.0, 138.0, 144.0, 126.0};
 
         return hexNAc;

@@ -15,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import no.probe.example.graphics.FileReaderDialog;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
@@ -29,11 +28,8 @@ public class FileData {
     public static int peaks = 0;
     public static int relevantPeaks = 0;
     public static ArrayList<double[]> mzValues = new ArrayList();
-//    public static LinkedHashMap<double[], double[][]> spectraAndMzMap = new LinkedHashMap();
 
     SpectrumFactory spectrumFactory = SpectrumFactory.getInstance(100000);
-
-    public static ArrayList<double[][]> spectraList = new ArrayList();
 
     MSnSpectrum spectrum;
     public static ArrayList<MSnSpectrum> glycoSpectrum = new ArrayList();
@@ -43,7 +39,7 @@ public class FileData {
 
     }
 
-    public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
+    public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException, InterruptedException {
 
         nrOfSpectra = 0;
         
@@ -82,12 +78,10 @@ public class FileData {
 
                 for (int i = 0; i < length; i++) {
 
-//                    if (mzAndIntensity[0][i] >= 800) {// hardcoded variable for sorting out only the lowest part pf spectra
                     if (mzAndIntensity[1][i] >= threshold) {
                         intensity.add(mzAndIntensity[1][i]);
                         masses.add(mzAndIntensity[0][i]);
 
-//                        }
                     }
                 }
 
@@ -101,7 +95,7 @@ public class FileData {
             }
 
             boolean hexHexNacSearch = test.HexHexNacSearch(dd);
-            if (hexHexNacSearch == true) {
+            if (hexHexNacSearch) {
 
                 fileSpectra.add(dd);
                 nrOfSpectraWithGlycan = nrOfSpectraWithGlycan + 1;

@@ -13,28 +13,19 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import no.probe.example.data.FileData;
-import no.probe.example.data.GlycanData;
 import no.probe.example.data.HexHexNacSearch;
 import no.probe.example.graphics.GlycanSearcherFrame;
 import org.jgrapht.DirectedGraph;
 
-/**
- *
- * @author Probe
- */
 public class ExtensiveGlycanSearch {
 
-    /**
-     *
-     */
-//   public static HashSet<Double> allDifferences;
     public ExtensiveGlycanSearch() {
 
     }
 
     public static ArrayList<DirectedGraph<String, Graph.GlycoEdge>> test = new ArrayList();
 
-    public void search(ArrayList<double[][]> spectraList, HashMap<String, Double> glycanGalMap) throws IOException {
+    public void search(ArrayList<double[][]> spectraList, HashMap<String, Double> glycanGalMap) throws IOException, InterruptedException {
 
         FileData getSpectrum = new FileData();
         ArrayList<MSnSpectrum> spectrumList = getSpectrum.GetGlyCoSpectrum();
@@ -44,7 +35,6 @@ public class ExtensiveGlycanSearch {
         Graph graphMaker = new Graph();
         HexHexNacSearch search = new HexHexNacSearch();
         HashMap<Double, Integer> foundSaccharides = new HashMap();
-//        HashMap<String, Double> glycanGalMap = GlycanData.getMassGalMap();
 
         ArrayList<Double> massArray = new ArrayList();
         ArrayList<Double> massArrayGlc = new ArrayList();
@@ -59,8 +49,6 @@ public class ExtensiveGlycanSearch {
         double sensitivity = GlycanSearcherFrame.sensitivity;
         double minValue = GlycanSearcherFrame.minValue;
 
-//        ArrayList<Double> mass = new ArrayList();
-//
         ArrayList<String> name = new ArrayList();
 
         ArrayList<String> nameGlc = new ArrayList();
@@ -91,10 +79,8 @@ public class ExtensiveGlycanSearch {
             nameGlc.add(key);
         }
 
-//        for (double[] s : spectraAndMzMap.keySet()) {// Fetching the mass values from the the hashmap
-//        for (double[] s : spectraWithGlycan) {
+
         for (int v = 0; v < spectraList.size(); v = v + 1) {
-//        for (int v = 0; v < 120; v = v + 1) {
             MSnSpectrum spectrum = spectrumList.get(v);
             double[][] spectra = spectraList.get(v);
             String hexhexnacSearch = search.HexHexNacStructure(spectra);
@@ -120,7 +106,6 @@ public class ExtensiveGlycanSearch {
                         if (difference > 125.0) {
 
                             allDifferences.add(Math.round(difference * 10) / 10.0d);
-//                         
                         }
                         for (int k = 0; k < massArray.size(); k++) {
                             double glycanMass = massArray.get(k);
@@ -138,7 +123,6 @@ public class ExtensiveGlycanSearch {
                                     allDifferences.add(Math.round(glycanMass * 10) / 10.0d);
                                 }
 
-//                                differenceIntensities.add(Double.toString(glycanMass)+"-"+Double.toString(spectra[1][j])+"-"+ Double.toString(spectra[1][j]));
                                 detectedMasses.add(glycanMass);
                                 detectedNames.add(name.get(k) + "(" + endPeak + "-" + startPeak + ")" + "_Neutral Loss");
 
@@ -169,7 +153,6 @@ public class ExtensiveGlycanSearch {
                 }
             }
 
-//            graphMaker.GraphMaker4(spectra, allDifferences, detectedMasses, detectedNames,spectrum);
             graphMaker.GraphMaker6(spectra, allDifferences, detectedMasses, detectedNames, spectrum);
             detectedNames.clear();
             detectedMasses.clear();

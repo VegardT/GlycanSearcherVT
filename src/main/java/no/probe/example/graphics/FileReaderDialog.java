@@ -59,7 +59,6 @@ public final class FileReaderDialog extends javax.swing.JDialog {
     public static double threshold;
     public static ArrayList<double[][]> spectraList;
     Label labelInfo;
-//    public static ArrayList<double[]> spectraWithGlycan = new ArrayList();
 
     /**
      * Creates new form FileReader

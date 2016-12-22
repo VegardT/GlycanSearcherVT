@@ -34,19 +34,11 @@ public class GraphOutputSearch {
         Double max = null;
         Set<String> vertexSet = testGraph.vertexSet();
 
-//int frequency = Collections.frequency(vertexSet, s);
         Integer size = 1;
         ArrayList<String> vertexesToRemove = new ArrayList();
         while (size != 0) {
 
             for (String s : vertexSet) {
-//                String[] split = s.split("\\_");
-//                String ss = split[0];
-//
-//                String[] words = ss.split("\\|");
-//
-//                String name = words[0];
-                
                 String[] words = utilities.GetNames(s);
 
                 for (int i = 0; i < words.length; i = i + 1) {
@@ -130,28 +122,6 @@ String[] words = utilities.GetNames(s);
 
         }
 
-//        for(String s : vertexSet){
-//            String search = "Neutral loss";
-//        
-//            if ( s.toLowerCase().contains(search.toLowerCase()) ) {
-//                 String r1 = "(^.*?\\(|\\)\\s*$)", r2 = "\\_";
-//            String[] ss = s.replaceAll(r1, "").split(r2);
-//
-//                String startValue = ss[0].replaceAll("[^0-9.]+", " ");
-//            
-//            
-//            
-//        }
-//        
-//        }
-        
-        
-        
-        
-        
-        
-        
-        
         count = count + 1;
 
         System.out.println("THIS IS GRAPH NUMBER " + count);
