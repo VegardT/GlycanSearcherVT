@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.graphics;
 
-import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.gui.spectrum.ReferenceArea;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -16,7 +10,6 @@ import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -26,7 +19,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -36,7 +28,6 @@ import no.probe.example.calculation.Graph;
 import no.probe.example.data.FileData;
 import no.probe.example.data.GlycanData;
 import no.probe.example.data.GlycanSearcherUtilities;
-import no.probe.example.data.GraphInformation;
 import no.probe.example.data.GraphOutputSearch;
 import no.probe.example.data.HexHexNacSearch;
 import no.probe.example.data.OutputSearchData;
@@ -65,8 +56,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     public static double threshold;
     public static ArrayList<double[][]> spectraList;
     private ArrayList<String> selectedNodes = new ArrayList();
-    Label labelInfo;
-//    public static ArrayList<double[]> spectraWithGlycan = new ArrayList();
 
     /**
      * Creates new form GlycanSearcherFrame
@@ -79,13 +68,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     
     public void displayResults() {
 
-        // Populate the table
-//        GlycanTableModel glycanTableModel = new GlycanTableModel();
-//        table.setModel(glycanTableModel);
-//        glycanTableModel.fireTableDataChanged();
-//        SaccharideTableModel saccharideTableModel = new SaccharideTableModel();
-//        jTable2.setModel(saccharideTableModel);
-//        saccharideTableModel.fireTableDataChanged();
     }
 
     /**
@@ -257,7 +239,11 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         findGlycanButton.setText("Find Glycan");
         findGlycanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                findGlycanButtonActionPerformed(evt);
+                try {
+                    findGlycanButtonActionPerformed(evt);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -423,7 +409,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findGlycanButtonActionPerformed
+    private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_findGlycanButtonActionPerformed
 
         //Variables
         ArrayList<String> hexNAcInformation = new ArrayList();
@@ -487,10 +473,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
             table.setModel(glycanTableModel);
             glycanTableModel.fireTableDataChanged();
 
-//           GraphInformation test = new GraphInformation();
-//            File SpectraSuggestions = test.SpectraSuggestions();
-            //             GraphOutputSearch getGraphs = new GraphOutputSearch();
-            //            ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
         } catch (IOException ex) {
             Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MzMLUnmarshallerException ex) {
@@ -530,7 +512,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
 
-//        showVertexInfo = false;
         infoBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -554,7 +535,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         final GlycoReferenceAreas reference = new GlycoReferenceAreas();
         
         ArrayList<double[][]> spectra = new ArrayList();
-        HashMap<Double, String> distances = new HashMap<Double, String>();
         
         int selectedRow = table.getSelectedRow();
         for (double[][] i : spectraList) {// Fetching the mass values from the the hashmap
@@ -578,10 +558,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                 new Dimension(graphPanel1.getWidth() - 20, graphPanel1.getHeight() - 100));
         vv.setBackground(Color.WHITE);
 
-        // create the visualization viewer
-        //            VisualizationViewer<String, String> vv = new VisualizationViewer<String, String>(new FRLayout<String, String>(VisualisationGraph));
-        //                    new Dimension(graphPanel1.getWidth() - 20, graphPanel1.getHeight() - 100));
-        //            vv.setBackground(Color.WHITE);
+
         //         set the vertex label transformer
         if (showVertexInfo == true) {
             vv.getRenderContext().setVertexLabelTransformer(new Transformer<String, String>() {
@@ -593,77 +570,15 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
             
         }
 
-        //
-        //         set the edge label transformer
-        //        vv.getRenderContext().setEdgeLabelTransformer(new Transformer<String, String>() {
-        //            @Override
-        //            public String transform(String arg0) {
-        //                return arg0;
-        //            }
-        //        });
+
         //         set the vertex renderer
         vv.getRenderer().setVertexRenderer(new ProteinInferenceVertexRenderer());
-        // set the edge label renderer
-        //        vv.getRenderer().setEdgeLabelRenderer(new BasicEdgeLabelRenderer<String, String>() {
-        //
-        //            @Override
-        //            public void labelEdge(RenderContext<String, String> rc, Layout<String, String> layout, String e, String label) {
-        //                // do nothing
-        //            }
-        //        });
-        ////         set the vertex label renderer
-        //        vv.getRenderer().setVertexLabelRenderer(new BasicVertexLabelRenderer<String, String>() {
-        //
-        //            @Override
-        //            public void labelVertex(RenderContext<String, String> rc, Layout<String, String> layout, String v, String label) {
-        //                if (label.startsWith("132") && showPeptideLabels) {
-        //                    String fullTooltip = nodeToolTips.get(label);
-        //                    super.labelVertex(rc, layout, v, fullTooltip.substring(0, fullTooltip.indexOf("<br>")));
-        //                }
-        //                if (label.startsWith("Protein") && showProteinLabels) {
-        //                    super.labelVertex(rc, layout, v, label.substring(label.indexOf(" ") + 1));
-        //                }
-        //            }
-        //        });
-        //         set the edge format
-        //        vv.getRenderContext().setEdgeDrawPaintTransformer(edgePaint);
-        //        vv.getRenderContext().setEdgeStrokeTransformer(edgeStroke);
+
         //         set the mouse interaction mode
         final DefaultModalGraphMouse<String, Number> graphMouse = new DefaultModalGraphMouse<String, Number>();
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
         vv.setGraphMouse(graphMouse);
-    //
-        // add a key listener
-        //        vv.addKeyListener(new KeyAdapter() {
 
-        //            @Override
-        //            public void keyReleased(KeyEvent e) {
-        //                if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
-        //                    for (String tempNode : nodes) {
-        //                        visualizationViewer.getPickedVertexState().pick(tempNode, true);
-        //                    }
-        //                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-        //                    for (String tempNode : nodes) {
-        //                        visualizationViewer.getPickedVertexState().pick(tempNode, false);
-        //                    }
-        //                }
-        //                super.keyReleased(e);
-        //            }
-        //        });
-        // set the vertex tooltips
-        //        vv.setVertexToolTipTransformer(
-        //                new ToStringLabeller<String>() {
-        //
-        //                    @Override
-        //                    public String transform(String v) {
-        //                        if (nodeToolTips != null && nodeToolTips.get(v) != null) {
-        //                            return super.transform(nodeToolTips.get(v));
-        //                        } else {
-        //                            return super.transform(v.substring(v.indexOf(" ") + 1));
-        //                        }
-        //                    }
-        //                }
-        //        );
         //         attach the listener that will print when the vertices selection changes
         graphPanel1.removeAll();
         
@@ -717,16 +632,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                     }
                 }
         );
-        //        ScalingControl scaler = new CrossoverScalingControl();
-        //        scaler.scale(vv, 0.9f, vv.getCenter());
-
-        //        graphPanel.removeAll();
-        //        graphPanel.add(vv);
-        //        graphPanel.revalidate();
-        //        graphPanel.repaint();
-        //        PopupMenu spectrumGlycoAnnotations = null;
-        //
-        //
 
     }//GEN-LAST:event_tableMouseReleased
 

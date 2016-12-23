@@ -1,4 +1,3 @@
-
 package no.probe.example.calculation;
 
 import com.compomics.util.experiment.massspectrometry.Charge;
@@ -24,7 +23,7 @@ import org.jgrapht.graph.DirectedMultigraph;
 
 public class Graph {
 
-    public void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException, InterruptedException {
+    protected void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException, InterruptedException {
 
         GlycanSearcherUtilities utilities = new GlycanSearcherUtilities();
 
@@ -41,9 +40,9 @@ public class Graph {
 
         allDifferences.clear();
 
-        ArrayList<String> startArray = new ArrayList(detectedNames);
-        ArrayList<String> vertexList = new ArrayList();
-        ArrayList<String> newVertexList = new ArrayList();
+        ArrayList<String> startArray = new ArrayList<String>(detectedNames);
+        ArrayList<String> vertexList = new ArrayList<String>();
+        ArrayList<String> newVertexList = new ArrayList<String>();
         vertexList.addAll(detectedNames);
 
         for (String s : detectedNames) {
@@ -53,13 +52,14 @@ public class Graph {
         while (!vertexList.isEmpty()) {
 
             for (String s : vertexList) {
+                String lastName = null;
                 double delta1 = 0;
                 double one = 0;
                 double two = 0;
-
-                HashMap<String, double[]> lastStepValues = utilities.GetLosses(s);
-                String lastName = null;
                 double[] lastValue = null;
+                HashMap<String, double[]> lastStepValues = utilities.GetLosses(s);
+
+
                 for (Map.Entry<String, double[]> entry : lastStepValues.entrySet()) {
                     lastName = entry.getKey();
                     lastValue = entry.getValue();
@@ -80,11 +80,10 @@ public class Graph {
                     for (Map.Entry<String, double[]> entry2 : nextStepValues.entrySet()) {
                         nextName = entry2.getKey();
                         nextValue = entry2.getValue();
+
                         double three = nextValue[1];
                         double four = nextValue[0];
-
                         double delta2 = four - three;
-
                         double deltaCheck = delta1 + delta2;
 
                         if (deltaCheck <= largestMass) {
@@ -94,13 +93,13 @@ public class Graph {
 
                                 boolean combinationTest = utilities.CombinationTest(lastName, lastName);
 
-                                if (combinationTest == false) {
+                                if (!combinationTest) {
 
                                     String newVertex = lastName + "|" + nextName + "(" + four + "-" + one + ")" + "_" + deltaString + "_" + "NeutralLoss";
 
                                     testGraph.addVertex(newVertex);
-
                                     testGraph.addEdge(v, newVertex, new GlycoEdge(v, newVertex, delta));
+
                                     newVertexList.add(newVertex);
 
                                     if (delta > largestMass) {
@@ -115,7 +114,7 @@ public class Graph {
 
                                 boolean combinationTest = utilities.CombinationTest(lastName, lastName);
 
-                                if (combinationTest == false) {
+                                if (!combinationTest) {
 
                                     String newVertex = lastName + "|" + nextName + "(" + two + "-" + three + ")" + "_" + deltaString + "_" + "NeutralLoss";
 
@@ -147,7 +146,6 @@ public class Graph {
         }
 
         GraphOutputSearch graphAlgorithm = new GraphOutputSearch();
-
         graphAlgorithm.GraphAlgorithm4(testGraph, startArray, largestMass);
 
     }
@@ -158,7 +156,7 @@ public class Graph {
         private V v2;
         private double label;
 
-        public GlycoEdge(V v1, V v2, double label) {
+        protected GlycoEdge(V v1, V v2, double label) {
             this.v1 = v1;
             this.v2 = v2;
             this.label = 0.0;

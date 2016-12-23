@@ -17,10 +17,8 @@ public class GlycanSearcherVT {
 
     public void StartGUI() throws IOException, ClassNotFoundException, MzMLUnmarshallerException {
 
-       
         dialog = new FileReaderDialog(null);
         dialog.setVisible(true);
-        
 
     }
 

@@ -14,17 +14,7 @@ public class SaccharideTableModel extends DefaultTableModel {
     private ArrayList<Double> percentHits;
 
     public SaccharideTableModel(ArrayList<Integer> hitsDifference, ArrayList<String> names, ArrayList<Double> saccharideMasses, ArrayList<Double> percentHits) {
-        
-       
-        
-//        for(String s:names){
-//            s.replace("|", "");
-// 
-//        }
-        
-        
 
-        
         setUpTableModel(hitsDifference, names, saccharideMasses, percentHits);
 
     }

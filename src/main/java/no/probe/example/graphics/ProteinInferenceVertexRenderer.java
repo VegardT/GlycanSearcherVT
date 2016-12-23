@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.graphics;
 
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -17,15 +12,12 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.Shape;
-import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import no.probe.example.data.GlycanSearcherUtilities;
 // Variables declaration - do not modify//GEN-BEGIN:variables
 
@@ -232,75 +224,7 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
 
         int alpha = 255;
 
-//             check if the node is selected or should be semi-transparent
-//            if (!selectedNeighborNodes.isEmpty()) {
-//                if (!selectedNeighborNodes.contains(vertex) && !selectedNodes.contains(vertex)) {
-//                    alpha = 50;
-//                }
-//            } else {
-//                if (!selectedNodes.contains(vertex)) {
-//                    alpha = 50;
-//                }
-//            }
-//
-//             draw a highlight to indicate the selected nodes
-//            if (selectedNodes.contains(vertex) && highlightCheckBox.isSelected()) {
-//                if (vertex.startsWith("Protein")) {
-//                    shape = new Ellipse2D.Double(center.getX() - 22, center.getY() - 22, 44, 44);
-//                } else if (vertex.startsWith("Peptide")) {
-//                    shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
-//                }
-//                graphicsContext.setPaint(Color.ORANGE);
-//                graphicsContext.fill(shape);
-//            }
-//
-//             draw a highlight indicating the validation or evidence level
-//            boolean highlightAdded = false;
-//            if (!nodeTypeRadioButton.isSelected()) {
-//
-//                if (nodeProperties.get(vertex) != null) {
-//
-//                    highlightAdded = true;
-//                    String[] properties = nodeProperties.get(vertex).split("\\|");
-//
-//                    if (validationStatusRadioButton.isSelected()) {
-//                        int validationLevel = Integer.parseInt(properties[0]);
-//
-//                        if (validationLevel == 0) { // not validated
-//                            color = new Color(255, 0, 0, alpha);
-//                        } else if (validationLevel == 1) { // doubtful
-//                            color = new Color(255, 204, 0, alpha);
-//                        } else if (validationLevel == 2) { // confident
-//                            color = new Color(110, 196, 97, alpha);
-//                        } else { // unknown...
-//                            color = new Color(200, 200, 200, alpha);
-//                        }
-//                    } else if (properties.length > 1) {
-//                        int evidenceLevel = Integer.parseInt(properties[1]);
-//
-//                        if (evidenceLevel == 1) { // protein
-//                            color = new Color(110, 196, 97, alpha);
-//                        } else if (evidenceLevel == 2) { // transcript
-//                            color = new Color(255, 204, 0, alpha);
-//                        } else if (evidenceLevel == 3) { // homology
-//                            color = new Color(110, 196, 197, alpha);
-//                        } else if (evidenceLevel == 4) { // predicted
-//                            color = new Color(247, 53, 233, alpha);
-//                        } else if (evidenceLevel == 5) { // uncertain
-//                            color = new Color(255, 0, 0, alpha);
-//                        } else { // unknown...
-//                            color = new Color(200, 200, 200, alpha);
-//                        }
-//                    } else {
-//                        color = new Color(200, 200, 200, alpha);
-//                    }
-//                }
-//            }
-//      p0.moveTo(0.0f, -s);
-//      p0.lineTo(s, 0.0f);
-//      p0.lineTo(0.0f, s);
-//      p0.lineTo(-s, 0.0f);
-//      p0.closePath();
+
         // draw the actual vertex
         GlycanSearcherUtilities names = new GlycanSearcherUtilities();
         String[] nameArray = names.GetNames(vertex);
@@ -318,17 +242,10 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
         }
         
         String substring = name.substring(0, 5);
-        
-      
-        
-        
-        
-//       String name = nameArray[0].substring(0, Math.min(6, nameArray[0].length()));
-//        String name = word.replaceAll("[^a-zA-Z0-9]", "");
+
 
         if (substring.equals("GalNA")) {
             shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-//                if (!highlightAdded) {
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -339,26 +256,11 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             color = new Color(150, 150, 150, alpha);
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
-//                }
-        } /*else if (substring.equals("GalN")) {
-        shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-        //                if (!highlightAdded) {
-        color = new Color(255, 255, 0, alpha);
-        
-        graphicsContext.setPaint(color);
-        
-        graphicsContext.fill(shape);
-        
-        // draw a thin border around the vertex
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        //                }
-        }*/ else if (substring.equals("GlcNA")) {
+
+        }  else if (substring.equals("GlcNA")) {
 
             // trekant som peker nedover
             shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-//                if (!highlightAdded) {
             color = new Color(0, 0, 255, alpha);
 
             graphicsContext.setPaint(color);
@@ -370,23 +272,7 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
 //                } 
-        } /*else if (substring.equals("GlcN")) {
-        
-        // trekant som peker nedover
-        shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-        //                if (!highlightAdded) {
-        color = new Color(0, 0, 255, alpha);
-        
-        graphicsContext.setPaint(color);
-        
-        graphicsContext.fill(shape);
-        
-        // draw a thin border around the vertex
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        //                }
-        }*/ else if (substring.equals("Fucos")) {
+        }  else if (substring.equals("Fucos")) {
 
             // trekant som peker nedover
             shape = new Polygon(
@@ -394,7 +280,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
                     new int[]{(int) center.getY() + 10, (int) center.getY() + 10, (int) center.getY() - 10},
                     3);
 
-//                if (!highlightAdded) {
             color = new Color(255, 0, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -414,7 +299,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
                     new int[]{(int) center.getY(), (int) center.getY() + 10, (int) center.getY(), (int) center.getY() - 10},
                     4);
 
-//                if (!highlightAdded) {
             color = new Color(200, 0, 200, alpha);
 
             graphicsContext.setPaint(color);
@@ -426,27 +310,7 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
 
-        } /*else if (name.equals("Neu5Ac+")) {
-        // Diamant figur
-        
-        shape = new Polygon(
-        new int[]{(int) center.getX() - 10, (int) center.getX(), (int) center.getX() + 10, (int) center.getX()},
-        new int[]{(int) center.getY(), (int) center.getY() + 10, (int) center.getY(), (int) center.getY() - 10},
-        4);
-        
-        //                if (!highlightAdded) {
-        color = new Color(200, 0, 200, alpha);
-        
-        graphicsContext.setPaint(color);
-        
-        graphicsContext.fill(shape);
-        
-        // draw a thin border around the vertex
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        
-        }*/ else if (substring.equals("Neu5Ac - H2O")) {
+        } else if (substring.equals("Neu5Ac - H2O")) {
             // Diamant figur
 
             shape = new Polygon(
@@ -473,7 +337,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
                     new int[]{(int) center.getY() - 10, (int) center.getY() + -2, (int) center.getY() - 2, (int) center.getY() + 2, (int) center.getY() + 10, (int) center.getY() + 4, (int) center.getY() + 10, (int) center.getY() + 2, (int) center.getY() - 2, (int) center.getY() - 2},
                     10);
 
-//                if (!highlightAdded) {
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -485,27 +348,10 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
 
-        }/* else if (substring.equals("Hex-")) {
-        
-        shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
-        
-        //                if (!highlightAdded) {
-        color = new Color(255, 255, 0, alpha);
-        
-        graphicsContext.setPaint(color);
-        
-        graphicsContext.fill(shape);
-        
-        // draw a thin border around the vertex
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        
-        }*/ else if (substring.equals("Hexos")) {
+        } else if (substring.equals("Hexos")) {
 
             shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
 
-//                if (!highlightAdded) {
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -592,37 +438,10 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
 
-        } /*else if (substring.equals("Pept")) {
-        
-        shape = new Polygon(
-        new int[]{(int) center.getX() - 10, (int) center.getX(), (int) center.getX() + 10},
-        new int[]{(int) center.getY(), (int) center.getY() - 10, (int) center.getY()},
-        3);
-        color = new Color(0, 0, 255, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.fill(shape);
-        
-        color = new Color(0, 0, 0, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        
-        shape = new Polygon(
-        new int[]{(int) center.getX() - 10, (int) center.getX(), (int) center.getX() + 10},
-        new int[]{(int) center.getY(), (int) center.getY() + 10, (int) center.getY()},
-        3);
-        
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.fill(shape);
-        
-        color = new Color(150, 150, 150, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);
-        
-        }*/else if (name.equals("oxGal")) {
+        } else if (name.equals("oxGal")) {
            shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
 
-//                if (!highlightAdded) {
+
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -634,26 +453,10 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.setPaint(color);
             graphicsContext.draw(shape);
 
-       /* }/*else if (name.equals("HexNAc")) {
-        // Diamant figur
-        
-        shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-        //                if (!highlightAdded) {
-        color = new Color(255, 255, 0, alpha);
-        
-        graphicsContext.setPaint(color);
-        
-        graphicsContext.fill(shape);
-        
-        // draw a thin border around the vertex
-        color = new Color(255, 255, 255, alpha);
-        graphicsContext.setPaint(color);
-        graphicsContext.draw(shape);*/
 
         } else if (name.equals("tag-oxGal")) {
            shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
 
-//                if (!highlightAdded) {
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -667,7 +470,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
 
         }else if (name.equals("ox-Gal-HexNAc")) {
          shape = new Rectangle2D.Double(center.getX() - 18, center.getY() - 18, 20, 20);
-//                if (!highlightAdded) {
             color = new Color(255, 255, 0, alpha);
 
             graphicsContext.setPaint(color);
@@ -685,7 +487,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
                     new int[]{(int) center.getY(), (int) center.getY() + 10, (int) center.getY(), (int) center.getY() - 10},
                     4);
 
-//                if (!highlightAdded) {
             color = new Color(200, 0, 200, alpha);
 
             graphicsContext.setPaint(color);
@@ -703,7 +504,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
                     new int[]{(int) center.getY(), (int) center.getY() + 10, (int) center.getY(), (int) center.getY() - 10},
                     4);
 
-//                if (!highlightAdded) {
             color = new Color(200, 0, 200, alpha);
 
             graphicsContext.setPaint(color);
@@ -730,22 +530,6 @@ class ProteinInferenceVertexRenderer implements Renderer.Vertex<String, String> 
             graphicsContext.draw(shape);
         }
 
-        // draw a thin border around the highlight
-//            if (selectedNodes.contains(vertex) && highlightCheckBox.isSelected()) {
-//
-//                if (vertex.startsWith("Protein")) {
-//                    shape = new Ellipse2D.Double(center.getX() - 22, center.getY() - 22, 44, 44);
-//                } else if (vertex.startsWith("Peptide")) {
-//                    shape = new Ellipse2D.Double(center.getX() - 14, center.getY() - 14, 28, 28);
-//                }
-//
-//                color = new Color(150, 150, 150, alpha);
-//                graphicsContext.setPaint(color);
-//                graphicsContext.draw(shape);
-//            }
+
     }
 }
-
-//    public ProteinInferenceVertexRenderer() {
-//    }
-

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.graphics;
 
 import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
@@ -52,13 +47,7 @@ public final class FileReaderDialog extends javax.swing.JDialog {
 
     public static String fileName;
     public static File selectedFile;
-
-    public static double minValue;
-    public static double maxValue;
-    public static double sensitivity;
-    public static double threshold;
     public static ArrayList<double[][]> spectraList;
-    Label labelInfo;
 
     /**
      * Creates new form FileReader
@@ -76,13 +65,7 @@ public final class FileReaderDialog extends javax.swing.JDialog {
 
     public void displayResults() {
 
-        // Populate the table
-//        GlycanTableModel glycanTableModel = new GlycanTableModel();
-//        table.setModel(glycanTableModel);
-//        glycanTableModel.fireTableDataChanged();
-//        SaccharideTableModel saccharideTableModel = new SaccharideTableModel();
-//        jTable2.setModel(saccharideTableModel);
-//        saccharideTableModel.fireTableDataChanged();
+
     }
 
     /**
@@ -497,56 +480,7 @@ public final class FileReaderDialog extends javax.swing.JDialog {
      */
     private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findGlycanButtonActionPerformed
 
-////        //Variables
-////        double massMax = GlycanData.getMassMax();
-////        threshold = Double.parseDouble(thresholdBox.getSelectedItem().toString());
-////        sensitivity = Double.parseDouble(sensitivityBox.getSelectedItem().toString()); //search parameter
-////        maxValue = Double.parseDouble(maxBox.getSelectedItem().toString());
-////        minValue = Double.parseDouble(minBox.getSelectedItem().toString()); //search parameter
-////        LinkedHashMap<String, Double> glycanMap = GlycanData.getMassGalMap();
-////
-////        try {
-////
-////            ExtensiveGlycanSearch extensiveGlycanSearch = new ExtensiveGlycanSearch();
-////            OutputSearchData searchResults = new OutputSearchData();
-////            FileData getData = new FileData();
-////            GlycanSearch glycanSearch = new GlycanSearch();
-////
-////            spectraList = getData.GetSpectra(selectedFile, fileName, threshold);
-////
-////            LinkedHashMap<Double, Integer> runSearch = glycanSearch.runSearch(spectraList, massMax, glycanMap);
-////
-////            //SearchResults for glycanSarch
-////            searchResults.OutputSearchData(runSearch);
-////            ArrayList<Integer> hitsDifference = searchResults.GetHitsDifference();
-////            ArrayList<String> names = searchResults.GetNames();
-////            ArrayList<Double> saccharideMasses = searchResults.GetSaccharideMasses();
-////            ArrayList<Double> percentHits = searchResults.GetPercentHits();
-////
-////            //Display result for glycanSearch
-////            SaccharideTableModel saccharideTableModel = new SaccharideTableModel(hitsDifference, names, saccharideMasses, percentHits);
-////            jTable2.setModel(saccharideTableModel);
-////            saccharideTableModel.fireTableDataChanged();
-////
-////            //Search and build graphs
-////            extensiveGlycanSearch.search(spectraList);
-////
-////            //SearchResults for ExtensiveGlycanSarch
-////            GlycanTableModel glycanTableModel = new GlycanTableModel(spectraList);
-////            table.setModel(glycanTableModel);
-////            glycanTableModel.fireTableDataChanged();
-////
-//////             GraphOutputSearch getGraphs = new GraphOutputSearch();
-//////            ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
-////        } catch (IOException ex) {
-////            Logger.getLogger(FileReaderDialog.class.getName()).log(Level.SEVERE, null, ex);
-////        } catch (MzMLUnmarshallerException ex) {
-////            Logger.getLogger(FileReaderDialog.class.getName()).log(Level.SEVERE, null, ex);
-////        } catch (ClassNotFoundException ex) {
-////            Logger.getLogger(FileReaderDialog.class.getName()).log(Level.SEVERE, null, ex);
-////        }
-////
-////
+
     }//GEN-LAST:event_findGlycanButtonActionPerformed
 
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
@@ -561,7 +495,7 @@ public final class FileReaderDialog extends javax.swing.JDialog {
 //        ReferenceArea referenceArea = null;
          ArrayList<MSnSpectrum> mSnSpectrum = FileData.glycoSpectrum;
 
-        ArrayList<double[][]> spectra = new ArrayList();
+        ArrayList<double[][]> spectra = new ArrayList<double[][]>();
         HashMap<Double, String> distances = new HashMap<Double, String>();
 
         int selectedRow = table.getSelectedRow();
@@ -580,11 +514,6 @@ public final class FileReaderDialog extends javax.swing.JDialog {
 
         DirectedGraph<String, Graph.GlycoEdge> graph = graphs.get(selectedRow);
 
-//        Set<String> vertexSet = graph.vertexSet();
-//        Set<Graph.GlycoEdge> edgeSet = graph.edgeSet();
-
-//        int counter = 0;
-
         HashSet glycoReferenceList = reference.GlycoReference(graph);
 
         UndirectedSparseGraph visualisationGraph = check.TranslateDirectGraph(graph);
@@ -597,20 +526,13 @@ public final class FileReaderDialog extends javax.swing.JDialog {
             
         }
 
-//        SpectrumPanel.setKnownMassDeltas(distances);
-//        spectrumPanel.setAnnotations(annotations);
+
         
         VisualizationViewer<String, String> vv = new VisualizationViewer<String, String>(new FRLayout<String, String>(visualisationGraph),
                 new Dimension(graphPanel1.getWidth() - 20, graphPanel1.getHeight() - 100));
         vv.setBackground(Color.WHITE);
 
-//        annotations.add(test);
-        
-        // create the visualization viewer
-//            VisualizationViewer<String, String> vv = new VisualizationViewer<String, String>(new FRLayout<String, String>(VisualisationGraph));
-//                    new Dimension(graphPanel1.getWidth() - 20, graphPanel1.getHeight() - 100));
-//            vv.setBackground(Color.WHITE);
-            
+
 //         set the vertex label transformer
         vv.getRenderContext().setVertexLabelTransformer(new Transformer<String, String>() {
             @Override
@@ -619,76 +541,11 @@ public final class FileReaderDialog extends javax.swing.JDialog {
             }
         });
 
-//         set the edge label transformer
-//        vv.getRenderContext().setEdgeLabelTransformer(new Transformer<String, String>() {
-//            @Override
-//            public String transform(String arg0) {
-//                return arg0;
-//            }
-//        });
-//         set the vertex renderer
-//////        vv.getRenderer().setVertexRenderer(new ProteinInferenceVertexRenderer());
-        // set the edge label renderer
-//        vv.getRenderer().setEdgeLabelRenderer(new BasicEdgeLabelRenderer<String, String>() {
-//
-//            @Override
-//            public void labelEdge(RenderContext<String, String> rc, Layout<String, String> layout, String e, String label) {
-//                // do nothing
-//            }
-//        });
-////         set the vertex label renderer
-//        vv.getRenderer().setVertexLabelRenderer(new BasicVertexLabelRenderer<String, String>() {
-//
-//            @Override
-//            public void labelVertex(RenderContext<String, String> rc, Layout<String, String> layout, String v, String label) {
-//                if (label.startsWith("132") && showPeptideLabels) {
-//                    String fullTooltip = nodeToolTips.get(label);
-//                    super.labelVertex(rc, layout, v, fullTooltip.substring(0, fullTooltip.indexOf("<br>")));
-//                }
-//                if (label.startsWith("Protein") && showProteinLabels) {
-//                    super.labelVertex(rc, layout, v, label.substring(label.indexOf(" ") + 1));
-//                }
-//            }
-//        });
-//         set the edge format
-//        vv.getRenderContext().setEdgeDrawPaintTransformer(edgePaint);
-//        vv.getRenderContext().setEdgeStrokeTransformer(edgeStroke);
 //         set the mouse interaction mode
         final DefaultModalGraphMouse<String, Number> graphMouse = new DefaultModalGraphMouse<String, Number>();
         graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
         vv.setGraphMouse(graphMouse);
-//        
-        // add a key listener
-//        vv.addKeyListener(new KeyAdapter() {
 
-//            @Override
-//            public void keyReleased(KeyEvent e) {
-//                if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_A) {
-//                    for (String tempNode : nodes) {
-//                        visualizationViewer.getPickedVertexState().pick(tempNode, true);
-//                    }
-//                } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//                    for (String tempNode : nodes) {
-//                        visualizationViewer.getPickedVertexState().pick(tempNode, false);
-//                    }
-//                }
-//                super.keyReleased(e);
-//            }
-//        }); 
-        // set the vertex tooltips
-//        vv.setVertexToolTipTransformer(
-//                new ToStringLabeller<String>() {
-//
-//                    @Override
-//                    public String transform(String v) {
-//                        if (nodeToolTips != null && nodeToolTips.get(v) != null) {
-//                            return super.transform(nodeToolTips.get(v));
-//                        } else {
-//                            return super.transform(v.substring(v.indexOf(" ") + 1));
-//                        }
-//                    }
-//                }
-//        );
 //         attach the listener that will print when the vertices selection changes
         final PickedState<String> pickedState = vv.getPickedVertexState();
         pickedState.addItemListener(
@@ -701,28 +558,17 @@ public final class FileReaderDialog extends javax.swing.JDialog {
                             String vertex = (String) subject;
                             if (pickedState.isPicked(vertex)) {
                                 System.out.println("picked: " + vertex);
-//                                if (!selectedNodes.contains(vertex)) {
-//                                    selectedNodes.add(vertex);
-//                                }
+
                             } else {
                                 System.out.println("not picked: " + vertex);
-//                                selectedNodes.remove(vertex);
+
                             }
                         }
-                        //updateNodeSelection();
+
                     }
                 }
         );
-//        ScalingControl scaler = new CrossoverScalingControl();
-//        scaler.scale(vv, 0.9f, vv.getCenter());
 
-//        graphPanel.removeAll();
-//        graphPanel.add(vv);
-//        graphPanel.revalidate();
-//        graphPanel.repaint();
-//        PopupMenu spectrumGlycoAnnotations = null;
-//        
-//        
         graphPanel1.removeAll();
 
         graphPanel1.add(vv);
@@ -740,25 +586,6 @@ public final class FileReaderDialog extends javax.swing.JDialog {
         spectraPanel.repaint();
     }//GEN-LAST:event_tableMouseReleased
 
-//            public void paintVertex(RenderContext<String, String> rc, Layout<String, String> layout, String vertex) {
-//            GraphicsDecorator graphicsContext = rc.getGraphicsContext();
-//            Point2D center = layout.transform(vertex);
-//            Shape shape = null;
-//            Color color = null;
-//
-//            int alpha = 255;
-//
-//            // check if the node is selected or should be semi-transparent
-//            if (!selectedNeighborNodes.isEmpty()) {
-//                if (!selectedNeighborNodes.contains(vertex) && !selectedNodes.contains(vertex)) {
-//                    alpha = 50;
-//                }
-//            } else {
-//                if (!selectedNodes.contains(vertex)) {
-//                    alpha = 50;
-//                }
-//}
-//            }
 
     private void tableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableKeyReleased
         tableMouseReleased(null);

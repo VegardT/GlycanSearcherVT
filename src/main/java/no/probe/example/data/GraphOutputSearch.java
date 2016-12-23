@@ -28,7 +28,7 @@ public class GraphOutputSearch {
         Set<String> vertexSet = testGraph.vertexSet();
 
         Integer size = 1;
-        ArrayList<String> vertexesToRemove = new ArrayList();
+        ArrayList<String> vertexesToRemove = new ArrayList<String>();
         while (size != 0) {
 
             for (String s : vertexSet) {

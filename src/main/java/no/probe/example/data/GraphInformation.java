@@ -81,11 +81,6 @@ public class GraphInformation {
             glycoInformation.clear();
         }
 
-        String mainString = null;
-
-        for (String s : allData) {
-            mainString += s + "\t";
-        }
 
         return null;
     }

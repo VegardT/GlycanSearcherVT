@@ -3,9 +3,15 @@ package no.probe.example.data;
 import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.experiment.massspectrometry.SpectrumFactory;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Properties;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
@@ -20,10 +26,7 @@ import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 public class FileData {
 
     protected static int peaks = 0;
-
-    SpectrumFactory spectrumFactory = SpectrumFactory.getInstance(100000);
-
-    private MSnSpectrum spectrum;
+    private SpectrumFactory spectrumFactory = SpectrumFactory.getInstance(100000);
     public static ArrayList<MSnSpectrum> glycoSpectrum = new ArrayList<MSnSpectrum>();
     public int nrOfSpectra = 0;
 
@@ -31,21 +34,25 @@ public class FileData {
 
     }
 
-    public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException, InterruptedException {
+    public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, ClassNotFoundException, MzMLUnmarshallerException, InterruptedException {
 
-        nrOfSpectra = 0;
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        MSnSpectrum spectrum;
+        int nrOfSpectra = 0;
         
         
         HexHexNacSearch test = new HexHexNacSearch();
-        ArrayList<String> mgfGlycanSpectra = new ArrayList();
+        ArrayList<String> mgfGlycanSpectra = new ArrayList<String>();
 
         double[][] dd = null;
         System.out.println("threshold " + threshold);
 
-        ArrayList<Double> intensity = new ArrayList();
-        ArrayList<Double> masses = new ArrayList();
+        ArrayList<Double> intensity = new ArrayList<Double>();
+        ArrayList<Double> masses = new ArrayList<Double>();
 
-        ArrayList<double[][]> fileSpectra = new ArrayList();
+        ArrayList<double[][]> fileSpectra = new ArrayList<double[][]>();
 
         spectrumFactory.addSpectra(selectedFile);
 
@@ -101,6 +108,30 @@ public class FileData {
         System.out.println("nr of spectra = " + nrOfSpectra);
         System.out.println("nr of nr Of Spectra With Glycan = " + nrOfSpectraWithGlycan);
 
+
+
+        try {
+
+            input = new FileInputStream("GlycanSearcherVT.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            Path file = Paths.get(prop.getProperty("pathToGlycanSpectra.mgf"));
+
+            Files.write(file, mgfGlycanSpectra, Charset.forName("UTF-8"));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         return fileSpectra;
     }

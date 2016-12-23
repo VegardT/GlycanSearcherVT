@@ -12,7 +12,7 @@ public class GlycanData {
 
     public static LinkedHashMap<String, Double> getMassGalMap() {
 
-        LinkedHashMap<String, Double> glycanMap = new LinkedHashMap();
+        LinkedHashMap<String, Double> glycanMap = new LinkedHashMap<String, Double>();
         glycanMap.put("Xylose", 132.0423);
         glycanMap.put("Hexose", 162.0528);
         glycanMap.put("Fucose", 146.0579 );
@@ -27,7 +27,7 @@ public class GlycanData {
 
     public static LinkedHashMap<String, Double> getModificationMap() {
 
-        LinkedHashMap<String, Double> modificationMap = new LinkedHashMap();
+        LinkedHashMap<String, Double> modificationMap = new LinkedHashMap<String, Double>();
 
         modificationMap.put("Oxygen or NH2 ", 16.0);
         modificationMap.put("NH3", 17.0);
@@ -48,7 +48,7 @@ public class GlycanData {
 
         int value = 0;
 
-        LinkedHashMap<Double, Integer> hitMap = new LinkedHashMap();
+        LinkedHashMap<Double, Integer> hitMap = new LinkedHashMap<Double, Integer>();
         for (String s : masses.keySet()) {// Fetching the mass values from the the hashmap
             Double key = masses.get(s);
             hitMap.put(key, value);
@@ -60,7 +60,7 @@ public class GlycanData {
 
     public static LinkedHashMap<String, Double> GetAminoAcids() {
 
-        LinkedHashMap<String, Double> aminoAcids = new LinkedHashMap();
+        LinkedHashMap<String, Double> aminoAcids = new LinkedHashMap<String, Double>();
 
         aminoAcids.put("Gly", 57.05);
         aminoAcids.put("Ala", 71.08);
@@ -88,7 +88,7 @@ public class GlycanData {
 
     public static LinkedHashMap<String, Double> GetTaggedOxoniumIons() {
 
-        LinkedHashMap<String, Double> taggedIons = new LinkedHashMap();
+        LinkedHashMap<String, Double> taggedIons = new LinkedHashMap<String, Double>();
 
         taggedIons.put("tag-oxNeu5Ac", 475.1857);
         taggedIons.put("tag-oxNeu5Ac [-H2O]", 457.1751);
@@ -108,7 +108,7 @@ public class GlycanData {
 
         int value = 0;
 
-        LinkedHashMap<Double, Integer> hitMap = new LinkedHashMap();
+        LinkedHashMap<Double, Integer> hitMap = new LinkedHashMap<Double, Integer>();
         for (String s : masses.keySet()) {// Fetching the mass values from the the hashmap
             Double key = masses.get(s);
             hitMap.put(key, value);

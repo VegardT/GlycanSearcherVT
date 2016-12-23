@@ -5,16 +5,12 @@ import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.experiment.massspectrometry.Precursor;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import javax.swing.table.DefaultTableModel;
 import no.probe.example.calculation.Graph;
 import no.probe.example.data.FileData;
 import no.probe.example.data.GlycanSearcherUtilities;
 import no.probe.example.data.GraphOutputSearch;
-import org.apache.commons.math.linear.MatrixUtils;
-import org.apache.commons.math.linear.RealMatrix;
-
 import org.jgrapht.DirectedGraph;
 
 /**
@@ -44,19 +40,11 @@ public class GlycanTableModel extends DefaultTableModel {
      * @param spectraList
      *
      */
-    public GlycanTableModel(ArrayList<double[][]> spectraList) {
+    public GlycanTableModel(ArrayList<double[][]> spectraList) throws InterruptedException {
         GlycanSearcherUtilities utilities = new GlycanSearcherUtilities();
 
         FileData glycoSpectrum = new FileData();
         ArrayList<MSnSpectrum> GlycoSpectrum = glycoSpectrum.GetGlyCoSpectrum();
-
-        
-  
-        
-        
-        
-        
-        
         
         
         for (MSnSpectrum msn : GlycoSpectrum) {
@@ -77,20 +65,18 @@ public class GlycanTableModel extends DefaultTableModel {
 
         }
 
-        LinkedHashSet<String> verticeNames = new LinkedHashSet();
+        LinkedHashSet<String> verticeNames = new LinkedHashSet<String>();
         GraphOutputSearch getGraphs = new GraphOutputSearch();
         ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
-        ArrayList<String> listOfNames = new ArrayList();
+        ArrayList<String> listOfNames = new ArrayList<String>();
 
         for (DirectedGraph<String, Graph.GlycoEdge> g : graphs) {
-            ArrayList<Double> massList = new ArrayList();
+            ArrayList<Double> massList = new ArrayList<Double>();
             int vertexes = g.vertexSet().size();
-            ArrayList<String> list = new ArrayList(g.vertexSet());
+            ArrayList<String> list = new ArrayList<String>(g.vertexSet());
             for (String s : list) {
                 String[] words = s.split("\\_");
                 double GetTotalMass = utilities.GetTotalMass(s);
-
-                String[] GetNames = utilities.GetNames(s);
 
                 massList.add(GetTotalMass);
                 verticeNames.add(words[0]);
@@ -105,7 +91,7 @@ public class GlycanTableModel extends DefaultTableModel {
 
                 NrOfVertexes.add(vertexes);
 
-                ArrayList nn = new ArrayList(verticeNames);
+                ArrayList<String> nn = new ArrayList<String>(verticeNames);
                 nameList.add(nn);
                 verticeNames.clear();
             }
@@ -117,7 +103,7 @@ public class GlycanTableModel extends DefaultTableModel {
             nrOfPeaks.add(peaks);
 
         }
-        LinkedHashSet<String> nameSet = new LinkedHashSet();
+        LinkedHashSet<String> nameSet = new LinkedHashSet<String> ();
         for (String s : listOfNames) {
             nameSet.add(s);
 
