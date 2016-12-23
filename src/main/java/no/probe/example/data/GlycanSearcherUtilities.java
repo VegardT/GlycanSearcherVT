@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
@@ -14,9 +9,10 @@ import no.probe.example.calculation.Graph;
 import org.jgrapht.DirectedGraph;
 
 /**
- *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
+
 public class GlycanSearcherUtilities {
 
     public GlycanSearcherUtilities() {
@@ -137,7 +133,6 @@ public class GlycanSearcherUtilities {
 
             Object v1 = e.getV1();
             Object v2 = e.getV2();
-            String edgeName = e.toString();
 
             String v1String = v1.toString();
             String v2String = v2.toString();
@@ -212,8 +207,6 @@ public class GlycanSearcherUtilities {
                     }
 
                 }
-            } else {
-
             }
 
         }
@@ -235,7 +228,6 @@ public class GlycanSearcherUtilities {
 
             Object v1 = e.getV1();
             Object v2 = e.getV2();
-            String edgeName = e.toString();
 
             String v1String = v1.toString();
             String v2String = v2.toString();

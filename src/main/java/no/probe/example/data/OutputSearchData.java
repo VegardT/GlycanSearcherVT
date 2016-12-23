@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import java.io.IOException;
@@ -12,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
 public class OutputSearchData {
 
@@ -24,9 +19,9 @@ public class OutputSearchData {
      *
      */
     public ArrayList hitsDifference = new ArrayList();
-    public ArrayList<Double> percentHits = new ArrayList();
-    public ArrayList<Double> SaccharideMasses = new ArrayList();
-    public ArrayList<String> names = new ArrayList();
+    public ArrayList<Double> percentHits = new ArrayList<Double>();
+    public ArrayList<Double> SaccharideMasses = new ArrayList<Double>();
+    public ArrayList<String> names = new ArrayList<String>();
 
     public void OutputSearchData(LinkedHashMap<Double, Integer> hitMap,LinkedHashMap<String, Double> glycanMap) throws IOException {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
@@ -10,29 +5,26 @@ import com.compomics.util.experiment.massspectrometry.SpectrumFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
  *
- * @author Probe This class stores the spectrum from the mgf file and stores
+ * Probe This class stores the spectrum from the mgf file and stores
  * them in a arrayList and gets the amount of peaks.
+ *
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  *
  */
 public class FileData {
 
-    public static int peaks = 0;
-    public static int relevantPeaks = 0;
-    public static ArrayList<double[]> mzValues = new ArrayList();
+    protected static int peaks = 0;
 
     SpectrumFactory spectrumFactory = SpectrumFactory.getInstance(100000);
 
-    MSnSpectrum spectrum;
-    public static ArrayList<MSnSpectrum> glycoSpectrum = new ArrayList();
+    private MSnSpectrum spectrum;
+    public static ArrayList<MSnSpectrum> glycoSpectrum = new ArrayList<MSnSpectrum>();
     public int nrOfSpectra = 0;
 
     public FileData() {
@@ -49,8 +41,6 @@ public class FileData {
 
         double[][] dd = null;
         System.out.println("threshold " + threshold);
-        peaks = 0;
-        relevantPeaks = 0;
 
         ArrayList<Double> intensity = new ArrayList();
         ArrayList<Double> masses = new ArrayList();
@@ -111,9 +101,6 @@ public class FileData {
         System.out.println("nr of spectra = " + nrOfSpectra);
         System.out.println("nr of nr Of Spectra With Glycan = " + nrOfSpectraWithGlycan);
 
-        Path file = Paths.get("C:\\Users\\Probe\\Documents\\GlycoMS\\GlycanSpectra.mgf");
-
-        Files.write(file, mgfGlycanSpectra, Charset.forName("UTF-8"));
 
         return fileSpectra;
     }
@@ -123,5 +110,4 @@ public class FileData {
         return glycoSpectrum;
 
     }
-
 }

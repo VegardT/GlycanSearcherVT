@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import java.util.ArrayList;
@@ -15,19 +10,16 @@ import org.apache.commons.math.linear.MatrixUtils;
 import org.apache.commons.math.linear.RealMatrix;
 
 /**
- *
- * @author Probe This is a methode inspired by sweetNet workflow.
- *
- *
- *
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
+
 public class HexHexNacSearch {
 
     public HexHexNacSearch() {
 
     }
 
-    public static ArrayList<double[]> massListWithGlycan = new ArrayList();
     public static HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 
     public boolean HexHexNacSearch(double[][] dd) {
@@ -39,21 +31,21 @@ public class HexHexNacSearch {
 
         boolean hexHexNAc = false;
 
-        int n = 0;
         double[] mIntensity;
         double[] mMass = null;
-        ArrayList<Double> values = new ArrayList();
-        ArrayList<Double> testInt = new ArrayList();
-        ArrayList<Double> testMass = new ArrayList();
 
-        ArrayList<Double> int126 = new ArrayList();
-        ArrayList<Double> int138 = new ArrayList();
-        ArrayList<Double> int144 = new ArrayList();
-        ArrayList<Double> int168 = new ArrayList();
+        ArrayList<Double> values = new ArrayList<Double>();
+        ArrayList<Double> testInt = new ArrayList<Double>();
+        ArrayList<Double> testMass = new ArrayList<Double>();
+
+        ArrayList<Double> int126 = new ArrayList<Double>();
+        ArrayList<Double> int138 = new ArrayList<Double>();
+        ArrayList<Double> int144 = new ArrayList<Double>();
+        ArrayList<Double> int168 = new ArrayList<Double>();
 
         double[] hexNacIonSeries = GlycanData.getHexNacIonSeries();
 
-        LinkedHashMap<Double, Double> map = new LinkedHashMap();
+        LinkedHashMap<Double, Double> map = new LinkedHashMap<Double, Double>();
 
         if (dd[1].length >= 2) {
 
@@ -136,16 +128,14 @@ public class HexHexNacSearch {
         int n = 0;
         double[] mIntensity;
         double[] mMass = null;
-        ArrayList<Double> values = new ArrayList();
-        ArrayList<Double> testInt = new ArrayList();
-        ArrayList<Double> testMass = new ArrayList();
+        ArrayList<Double> values = new ArrayList<Double>();
+        ArrayList<Double> testInt = new ArrayList<Double>();
+        ArrayList<Double> testMass = new ArrayList<Double>();
 
-        ArrayList<Double> int126 = new ArrayList();
-        ArrayList<Double> int138 = new ArrayList();
-        ArrayList<Double> int144 = new ArrayList();
-        ArrayList<Double> int168 = new ArrayList();
-
-        HashMap<String, Integer> galNacGlcNacMap = new HashMap();
+        ArrayList<Double> int126 = new ArrayList<Double>();
+        ArrayList<Double> int138 = new ArrayList<Double>();
+        ArrayList<Double> int144 = new ArrayList<Double>();
+        ArrayList<Double> int168 = new ArrayList<Double>();
 
         double[] hexNacIonSeries = GlycanData.getHexNacIonSeries();
 
@@ -185,7 +175,7 @@ public class HexHexNacSearch {
             }
         }
 
-        ArrayList<String> list = new ArrayList();
+        ArrayList<String> list = new ArrayList<String>();
         if (!map.isEmpty()) {
             Set<Double> keySet = map.keySet();
             int size = keySet.size();

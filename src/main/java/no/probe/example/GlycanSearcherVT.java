@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,17 +7,15 @@ import no.probe.example.graphics.FileReaderDialog;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
- *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
-public class GlycanSearcherVT {
 
-    private javax.swing.JButton findGlycanButton;
-    private javax.swing.JTextField specField;
+public class GlycanSearcherVT {
 
     private FileReaderDialog dialog;
 
-    public void StartGUI() throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
+    public void StartGUI() throws IOException, ClassNotFoundException, MzMLUnmarshallerException {
 
        
         dialog = new FileReaderDialog(null);

@@ -1,15 +1,10 @@
- /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import java.util.LinkedHashMap;
 
 /**
- *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
 public class GlycanData {
 
@@ -22,7 +17,6 @@ public class GlycanData {
         glycanMap.put("Hexose", 162.0528);
         glycanMap.put("Fucose", 146.0579 );
         glycanMap.put("HexNAc", 204.0866);
-
         glycanMap.put("HexNAc+", 205.0866);
         glycanMap.put("Neu5Ac-H2O", 274.0794);
         glycanMap.put("Neu5Ac", 291.0954);

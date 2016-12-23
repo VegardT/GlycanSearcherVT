@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.calculation;
 
 import java.util.ArrayList;
@@ -11,13 +6,11 @@ import org.jgrapht.DirectedGraph;
 
 /**
  *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
 public class GraphPostProcessing {
 
-    public GraphPostProcessing() {
-
-    }
 
     public ArrayList<DirectedGraph<String, Graph.GlycoEdge>> postProcessing(ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs) {
 
@@ -64,7 +57,5 @@ public class GraphPostProcessing {
         }
 
         return graphs;
-
     }
-
 }

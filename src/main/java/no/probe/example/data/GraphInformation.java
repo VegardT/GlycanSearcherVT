@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.data;
 
 import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,22 +12,20 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 import no.probe.example.calculation.Graph;
-import org.apache.commons.io.FileUtils;
 import org.jgrapht.DirectedGraph;
 
 /**
- *
- * @author Probe
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  */
+
 public class GraphInformation {
 
     public GraphInformation() {
 
     }
 
-    public File SpectraSuggestions() throws FileNotFoundException, IOException {
-        GlycanSearcherUtilities gUtilities = new GlycanSearcherUtilities();
-
+    public File SpectraSuggestions() throws IOException {
         GraphOutputSearch getGraphs = new GraphOutputSearch();
         ArrayList<DirectedGraph<String, Graph.GlycoEdge>> glycanGraphList = getGraphs.GetGlycanGraph();
         ArrayList<MSnSpectrum> spectrum = FileData.glycoSpectrum;
@@ -77,8 +64,6 @@ public class GraphInformation {
 
             combinationData = spectrumTitle + "_" + test + "-";
             allData.add(combinationData);
-            combinationData = "";
-            test = "";
 
             PrintWriter out = new PrintWriter("C:\\Users\\Probe\\Documents\\Koder\\Test\\testFile.txt");
 

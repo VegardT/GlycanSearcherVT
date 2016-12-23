@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.calculation;
 
 import java.io.IOException;
@@ -13,10 +8,10 @@ import no.probe.example.graphics.GlycanSearcherFrame;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
+ *Probe The glycanSearch searches each spectra for glycanMass
  *
- * @author Probe The glycanSearch searches each spectra for glycanMass
- *
- *
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
  *
  */
 public class GlycanSearch {
@@ -38,17 +33,13 @@ public class GlycanSearch {
         double maxValue = GlycanSearcherFrame.maxValue;
         double sensitivity = GlycanSearcherFrame.sensitivity;
         double minValue = GlycanSearcherFrame.minValue;
-        ArrayList<Double> SaccharideMasses = new ArrayList();
+        ArrayList<Double> SaccharideMasses = new ArrayList<Double>();
 
         long startTime = System.currentTimeMillis();
 
-        if (hitMap.isEmpty()) {
+        if (hitMap != null && hitMap.isEmpty()) {
             hitMap.clear();
-        } else {
-
         }
-
-        boolean found = false;
 
         for (String s : glycanMap.keySet()) {
             double value = glycanMap.get(s);
@@ -78,16 +69,12 @@ public class GlycanSearch {
                         for (Double SaccharideMasse : SaccharideMasses) {
                             double glycanMass = SaccharideMasse;
                             if (difference > glycanMass - sensitivity && difference < glycanMass + sensitivity) {
-
-                                found = true;
-
-                                hitMap.put(glycanMass, hitMap.get(glycanMass) + 1);
+                                if (hitMap != null) {
+                                    hitMap.put(glycanMass, hitMap.get(glycanMass) + 1);
+                                }
 
                             }
                         }
-                    }
-                    if (!found) {
-
                     }
 
                 }
@@ -106,13 +93,13 @@ public class GlycanSearch {
                 for (Double SaccharideMasse : SaccharideMasses) {
                     double glycanMass = SaccharideMasse;
                     if (mass > glycanMass - sensitivity && mass < glycanMass + sensitivity) {
-                        found = true;
-                        hitMap.put(glycanMass, hitMap.get(glycanMass) + 1);
+
+                        if (hitMap != null) {
+                            hitMap.put(glycanMass, hitMap.get(glycanMass) + 1);
+                        }
 
                     }
                 }
-            }
-            if (!found) {
             }
         }
 
@@ -122,5 +109,4 @@ public class GlycanSearch {
         return hitMap;
 
     }
-
 }

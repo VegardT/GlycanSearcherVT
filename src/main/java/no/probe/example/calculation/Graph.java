@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package no.probe.example.calculation;
 
 import com.compomics.util.experiment.massspectrometry.Charge;
@@ -10,29 +6,23 @@ import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.experiment.massspectrometry.Precursor;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import no.probe.example.data.GlycanSearcherUtilities;
 import no.probe.example.data.GraphOutputSearch;
-import no.probe.example.graphics.FileReaderDialog;
-import no.probe.example.graphics.GlycanSearcherFrame;
-import org.jgrapht.GraphPath;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.ClassBasedEdgeFactory;
 import org.jgrapht.graph.DirectedMultigraph;
 
+/**
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
+ */
+
 public class Graph {
-
-    public Graph() {
-
-    }
-
 
     public void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException, InterruptedException {
 
@@ -43,18 +33,9 @@ public class Graph {
         
         Charge Charge = possibleCharges.get(0);
         
-        
-        
         double maxMz = spectrum.getMaxMz();
         double precursorMass = precursor.getMass(Charge.value);
-
-         double largestMass = (precursorMass - maxMz );
-        
-        double mass = 0;
-        int n = 0;
-
-        boolean found = false;
-        double sensitivity = GlycanSearcherFrame.sensitivity;
+        double largestMass = (precursorMass - maxMz );
 
         DirectedGraph<String, GlycoEdge> testGraph = new DirectedMultigraph<String, GlycoEdge>(new ClassBasedEdgeFactory<String, GlycoEdge>(GlycoEdge.class));
 
@@ -67,9 +48,6 @@ public class Graph {
 
         for (String s : detectedNames) {
             testGraph.addVertex(s);
-
-            double GetTotalMass = utilities.GetTotalMass(s);
-
         }
 
         while (!vertexList.isEmpty()) {
@@ -111,8 +89,6 @@ public class Graph {
 
                         if (deltaCheck <= largestMass) {
                             if (two > three - 1.0 && two < three + 1.0) {
-                                String startValue = Double.toString(lastValue[0]);
-                                String endValue = Double.toString(lastValue[0]);
                                 double delta = nextValue[0] + lastValue[1];
                                 String deltaString = Double.toString(deltaCheck);
 
@@ -134,8 +110,6 @@ public class Graph {
                                 }
                                 
                             } else if (four > one - 1.0 && four < one + 1.0) {
-                                String startValue = Double.toString(lastValue[0]);
-                                String endValue = Double.toString(lastValue[1]);
                                 double delta = nextValue[0] + lastValue[1];
                                 String deltaString = Double.toString(deltaCheck);
 

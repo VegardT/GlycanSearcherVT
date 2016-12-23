@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package no.probe.example.calculation;
 
 import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
@@ -15,44 +10,40 @@ import java.util.Map;
 import no.probe.example.data.FileData;
 import no.probe.example.data.HexHexNacSearch;
 import no.probe.example.graphics.GlycanSearcherFrame;
-import org.jgrapht.DirectedGraph;
+
+/**
+ * @author Vegard Tveit
+ * @author Joakim Kartveit
+ */
 
 public class ExtensiveGlycanSearch {
-
-    public ExtensiveGlycanSearch() {
-
-    }
-
-    public static ArrayList<DirectedGraph<String, Graph.GlycoEdge>> test = new ArrayList();
 
     public void search(ArrayList<double[][]> spectraList, HashMap<String, Double> glycanGalMap) throws IOException, InterruptedException {
 
         FileData getSpectrum = new FileData();
         ArrayList<MSnSpectrum> spectrumList = getSpectrum.GetGlyCoSpectrum();
 
-        HashSet<Double> allDifferences = new HashSet();
+        HashSet<Double> allDifferences = new HashSet<Double>();
 
         Graph graphMaker = new Graph();
         HexHexNacSearch search = new HexHexNacSearch();
-        HashMap<Double, Integer> foundSaccharides = new HashMap();
+        HashMap<Double, Integer> foundSaccharides = new HashMap<Double, Integer>();
 
-        ArrayList<Double> massArray = new ArrayList();
-        ArrayList<Double> massArrayGlc = new ArrayList();
-        ArrayList<Double> massArrayGal = new ArrayList();
+        ArrayList<Double> massArray;
+        ArrayList<Double> massArrayGlc = new ArrayList<Double>();
+        ArrayList<Double> massArrayGal = new ArrayList<Double>();
 
-        LinkedHashSet<Double> detectedMasses = new LinkedHashSet();
-        LinkedHashSet<String> detectedNames = new LinkedHashSet();
-
-        boolean found = false;
+        LinkedHashSet<Double> detectedMasses = new LinkedHashSet<Double>();
+        LinkedHashSet<String> detectedNames = new LinkedHashSet<String>();
 
         double maxValue = GlycanSearcherFrame.maxValue;
         double sensitivity = GlycanSearcherFrame.sensitivity;
         double minValue = GlycanSearcherFrame.minValue;
 
-        ArrayList<String> name = new ArrayList();
+        ArrayList<String> name;
 
-        ArrayList<String> nameGlc = new ArrayList();
-        ArrayList<String> nameGal = new ArrayList();
+        ArrayList<String> nameGlc = new ArrayList<String>();
+        ArrayList<String> nameGal = new ArrayList<String>();
         glycanGalMap.remove("HexNAc", 204.0866);
         glycanGalMap.remove("HexNAc+", 205.0866);
         glycanGalMap.put("GalNAc", 204.0866);
@@ -114,7 +105,6 @@ public class ExtensiveGlycanSearch {
                                 String endPeak = String.valueOf(numberAtI);
                                 String startPeak = String.valueOf(numberAtJ);
 
-                                found = true;
                                 foundSaccharides.put(glycanMass, value);
                                 foundSaccharides.put(glycanMass, foundSaccharides.get(glycanMass) + 1);
 
@@ -127,9 +117,6 @@ public class ExtensiveGlycanSearch {
                                 detectedNames.add(name.get(k) + "(" + endPeak + "-" + startPeak + ")" + "_Neutral Loss");
 
                             }
-                            if (!found) {
-
-                            }
                         }
                     }
                 }
@@ -138,8 +125,6 @@ public class ExtensiveGlycanSearch {
                 for (int k = 0; k < massArray.size(); k++) {
                     double glycanMass = massArray.get(k);
                     if (peakMass > glycanMass - sensitivity && peakMass < glycanMass + sensitivity) {
-                        found = true;
-
                         String peak = String.valueOf(peakMass);
 
                         if (glycanMass > 125.0) {
@@ -156,10 +141,8 @@ public class ExtensiveGlycanSearch {
             graphMaker.GraphMaker6(spectra, allDifferences, detectedMasses, detectedNames, spectrum);
             detectedNames.clear();
             detectedMasses.clear();
-
             allDifferences.clear();
 
         }
-
     }
 }
