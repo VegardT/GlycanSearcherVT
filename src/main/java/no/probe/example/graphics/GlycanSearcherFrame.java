@@ -5,7 +5,6 @@
  */
 package no.probe.example.graphics;
 
-import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.gui.spectrum.ReferenceArea;
 import com.compomics.util.gui.spectrum.SpectrumPanel;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -26,7 +25,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -36,7 +34,6 @@ import no.probe.example.calculation.Graph;
 import no.probe.example.data.FileData;
 import no.probe.example.data.GlycanData;
 import no.probe.example.data.GlycanSearcherUtilities;
-import no.probe.example.data.GraphInformation;
 import no.probe.example.data.GraphOutputSearch;
 import no.probe.example.data.HexHexNacSearch;
 import no.probe.example.data.OutputSearchData;
@@ -53,12 +50,17 @@ import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
  * @author Probe
  */
 public class GlycanSearcherFrame extends javax.swing.JFrame {
-    
+
     public static String fileName;
+    public String filepath;
+    public String savePath;
     public static File selectedFile;
-    
+
     private boolean showVertexInfo;
     
+    private boolean saveFile = false;
+    public File outputFile;
+
     public static double minValue;
     public static double maxValue;
     public static double sensitivity;
@@ -76,7 +78,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         displayResults();
         setLocationRelativeTo(null);
     }
-    
+
     public void displayResults() {
 
         // Populate the table
@@ -127,6 +129,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         saccharideListBox = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
@@ -270,6 +273,13 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
         jLabel10.setText("m/z Tolerance");
 
+        jButton2.setText("Select output");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -280,14 +290,14 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(maxBox, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                                 .addComponent(jLabel7))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(minBox, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,19 +309,17 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                             .addComponent(sensitivityBox, 0, 78, Short.MAX_VALUE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(68, 68, 68)
-                                        .addComponent(jLabel4))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thresholdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 311, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(203, 203, 203)
-                                .addComponent(findGlycanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(68, 68, 68)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(thresholdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(findGlycanButton, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(fField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -327,15 +335,20 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                     .addComponent(fileJLabal)
                     .addComponent(fField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(sensitivityBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(thresholdBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(sensitivityBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(thresholdBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(5, 5, 5)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(findGlycanButton)
@@ -374,7 +387,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -419,20 +432,17 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(graphPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(graphPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(infoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(spectraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(spectraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jButton1))
                 .addContainerGap())
         );
-
-        spectraPanel.getAccessibleContext().setAccessibleName("Spectrum");
-        jPanel3.getAccessibleContext().setAccessibleName("Spectrum properties");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -441,157 +451,52 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findGlycanButtonActionPerformed
-
-        //Variables
-        ArrayList<String> hexNAcInformation = new ArrayList();
-        
-        double massMax = GlycanData.getMassMax();
-        threshold = Double.parseDouble(thresholdBox.getSelectedItem().toString());
-        sensitivity = Double.parseDouble(sensitivityBox.getSelectedItem().toString()); //search parameter
-        maxValue = Double.parseDouble(maxBox.getSelectedItem().toString());
-        minValue = Double.parseDouble(minBox.getSelectedItem().toString()); //search parameter
-        LinkedHashMap<String, Double> glycanMap = null;
-        
-        String saccharideList = saccharideListBox.getSelectedItem().toString();
-        if (saccharideList.equals("Normal")) {
-            glycanMap = GlycanData.getMassGalMap();
-        } else if (saccharideList.equals("Tagged")) {
-            glycanMap = GlycanData.GetTaggedOxoniumIons();
-        }
-        
-        try {
-            
-            ExtensiveGlycanSearch extensiveGlycanSearch = new ExtensiveGlycanSearch();
-            OutputSearchData searchResults = new OutputSearchData();
-            FileData getData = new FileData();
-            GlycanSearch glycanSearch = new GlycanSearch();
-            
-            spectraList = getData.GetSpectra(selectedFile, fileName, threshold);
-            String nrOFglycoSpectra = Integer.toString(spectraList.size());
-            glycoField.setText(nrOFglycoSpectra);
-            specField.setText(Integer.toString(getData.nrOfSpectra));
-            
-            HashMap<String, Integer> galNacGlcNacMap = HexHexNacSearch.galNacGlcNacMap;
-     
-            for (Entry<String, Integer> e : galNacGlcNacMap.entrySet()) {
-                Integer value = e.getValue();
-                hexNAcInformation.add(value.toString());
-                
-            }
-            
-            GalField.setText(hexNAcInformation.get(1));
-            GlcField.setText(hexNAcInformation.get(0));
-            
-            LinkedHashMap<Double, Integer> runSearch = glycanSearch.runSearch(spectraList, massMax, glycanMap, saccharideList);
-
-            //SearchResults for glycanSarch
-            searchResults.OutputSearchData(runSearch, glycanMap);
-            ArrayList<Integer> hitsDifference = searchResults.GetHitsDifference();
-            ArrayList<String> names = searchResults.GetNames();
-            ArrayList<Double> saccharideMasses = searchResults.GetSaccharideMasses();
-            ArrayList<Double> percentHits = searchResults.GetPercentHits();
-
-            //Display result for glycanSearch
-            SaccharideTableModel saccharideTableModel = new SaccharideTableModel(hitsDifference, names, saccharideMasses, percentHits);
-            jTable2.setModel(saccharideTableModel);
-            saccharideTableModel.fireTableDataChanged();
-
-            //Search and build graphs
-            extensiveGlycanSearch.search(spectraList, glycanMap);
-
-            //SearchResults for ExtensiveGlycanSarch
-            GlycanTableModel glycanTableModel = new GlycanTableModel(spectraList);
-            table.setModel(glycanTableModel);
-            glycanTableModel.fireTableDataChanged();
-
-//           GraphInformation test = new GraphInformation();
-//            File SpectraSuggestions = test.SpectraSuggestions();
-            //             GraphOutputSearch getGraphs = new GraphOutputSearch();
-            //            ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
-        } catch (IOException ex) {
-            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MzMLUnmarshallerException ex) {
-            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_findGlycanButtonActionPerformed
-
-    private void sensitivityBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sensitivityBoxActionPerformed
-
-    }//GEN-LAST:event_sensitivityBoxActionPerformed
-
-    private void thresholdBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thresholdBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_thresholdBoxActionPerformed
-
-    private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
-        // Loads file and reutrns an ArrayList containing the spectra
-
-        JFileChooser chooser = new JFileChooser();
-        
-        int returnVal = chooser.showOpenDialog(null);
-        
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            
-            selectedFile = chooser.getSelectedFile();
-            String filepath = chooser.getName(selectedFile);
-            fField.setText(filepath);
-            
-            fileName = selectedFile.getName();
-            System.out.println(fileName);
-            
-        }
-    }//GEN-LAST:event_openActionPerformed
-
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
 
 //        showVertexInfo = false;
         infoBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                
+
                 if (e.getStateChange() == ItemEvent.SELECTED) {//checkbox has been selected
                     showVertexInfo = true;
-                    
+
                 } else {//checkbox has been deselected
                     showVertexInfo = false;
-                    
+
                 };
             }
         });
-        
+
         selectedNodes.clear();
         GraphOutputSearch getGraphs = new GraphOutputSearch();
-        
+
         ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
         GlycanSearcherUtilities check = new GlycanSearcherUtilities();
-        
+
         final GlycoReferenceAreas reference = new GlycoReferenceAreas();
-        
+
         ArrayList<double[][]> spectra = new ArrayList();
         HashMap<Double, String> distances = new HashMap<Double, String>();
-        
+
         int selectedRow = table.getSelectedRow();
         for (double[][] i : spectraList) {// Fetching the mass values from the the hashmap
 
             spectra.add(i);
         }
-        
+
         double[][] s = spectra.get(selectedRow);
         RealMatrix matrix = MatrixUtils.createRealMatrix(s);
         double[] intensity = matrix.getRow(1);
         double[] mz = matrix.getRow(0);
-        
+
         final SpectrumPanel spectrumPanel = new SpectrumPanel(mz, intensity, 0.0, "2", "fileName", 50, false, false, false, 2, false);
         spectrumPanel.setAnnotations(null);
-        
+
         DirectedGraph<String, Graph.GlycoEdge> graph = graphs.get(selectedRow);
-        
+
         UndirectedSparseGraph visualisationGraph = check.TranslateDirectGraph(graph);
-        
+
         VisualizationViewer<String, String> vv = new VisualizationViewer<String, String>(new FRLayout<String, String>(visualisationGraph),
                 new Dimension(graphPanel1.getWidth() - 20, graphPanel1.getHeight() - 100));
         vv.setBackground(Color.WHITE);
@@ -608,7 +513,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                     return arg0;
                 }
             });
-            
+
         }
 
         //
@@ -684,53 +589,53 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         //        );
         //         attach the listener that will print when the vertices selection changes
         graphPanel1.removeAll();
-        
+
         graphPanel1.add(vv);
-        
+
         graphPanel1.revalidate();
-        
+
         graphPanel1.repaint();
         spectraPanel.removeAll();
-        
+
         spectraPanel.add(spectrumPanel);
-        
+
         spectraPanel.validate();
-        
+
         spectraPanel.repaint();
-        
+
         final PickedState<String> pickedState = vv.getPickedVertexState();
         pickedState.addItemListener(
                 new ItemListener() {
-                    
+
                     @Override
                     public void itemStateChanged(ItemEvent e) {
                         Object subject = e.getItem();
                         if (subject instanceof String) {
                             String vertex = (String) subject;
                             if (pickedState.isPicked(vertex)) {
-                                
+
                                 if (!selectedNodes.contains(vertex)) {
                                     selectedNodes.add(vertex);
                                 }
                             } else {
-                                
+
                                 selectedNodes.remove(vertex);
                             }
                         }
-                        
+
                         HashSet glycoReferenceList = reference.GlycoReferencePickedVertexes(selectedNodes);
                         for (Object referenceArea : glycoReferenceList) {
-                            
+
                             spectrumPanel.addReferenceAreaXAxis((ReferenceArea) referenceArea);
-                            
+
                         }
-                        
+
                         spectraPanel.removeAll();
-                        
+
                         spectraPanel.add(spectrumPanel);
-                        
+
                         spectraPanel.validate();
-                        
+
                         spectraPanel.repaint();
                     }
                 }
@@ -765,15 +670,15 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         table.setModel(glycanTableModel);
         glycanTableModel.fireTableDataChanged();
         GraphOutputSearch getGraphs = new GraphOutputSearch();
-        
+
         ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
         graphs.clear();
-        
+
         spectraPanel.removeAll();
         spectraPanel.repaint();
         graphPanel1.removeAll();
         graphPanel1.repaint();
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -781,10 +686,139 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_specFieldActionPerformed
 
+    private void findGlycanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findGlycanButtonActionPerformed
+
+        //Variables
+        ArrayList<String> hexNAcInformation = new ArrayList();
+
+        double massMax = GlycanData.getMassMax();
+        threshold = Double.parseDouble(thresholdBox.getSelectedItem().toString());
+        sensitivity = Double.parseDouble(sensitivityBox.getSelectedItem().toString()); //search parameter
+        maxValue = Double.parseDouble(maxBox.getSelectedItem().toString());
+        minValue = Double.parseDouble(minBox.getSelectedItem().toString()); //search parameter
+        LinkedHashMap<String, Double> glycanMap = null;
+
+        String saccharideList = saccharideListBox.getSelectedItem().toString();
+        if (saccharideList.equals("Normal")) {
+            glycanMap = GlycanData.getMassGalMap();
+        } else if (saccharideList.equals("Tagged")) {
+            glycanMap = GlycanData.GetTaggedOxoniumIons();
+        }
+
+        try {
+
+            ExtensiveGlycanSearch extensiveGlycanSearch = new ExtensiveGlycanSearch();
+            OutputSearchData searchResults = new OutputSearchData();
+            FileData getData = new FileData();
+            GlycanSearch glycanSearch = new GlycanSearch();
+
+            spectraList = getData.GetSpectra(savePath, selectedFile, fileName, threshold, saveFile, outputFile);
+            String nrOFglycoSpectra = Integer.toString(spectraList.size());
+            glycoField.setText(nrOFglycoSpectra);
+            specField.setText(Integer.toString(getData.nrOfSpectra));
+
+            HashMap<String, Integer> galNacGlcNacMap = HexHexNacSearch.galNacGlcNacMap;
+
+            for (Entry<String, Integer> e : galNacGlcNacMap.entrySet()) {
+                Integer value = e.getValue();
+                hexNAcInformation.add(value.toString());
+
+            }
+
+            GalField.setText(hexNAcInformation.get(1));
+            GlcField.setText(hexNAcInformation.get(0));
+
+            LinkedHashMap<Double, Integer> runSearch = glycanSearch.runSearch(spectraList, massMax, glycanMap, saccharideList);
+
+            //SearchResults for glycanSarch
+            searchResults.OutputSearchData(runSearch, glycanMap);
+            ArrayList<Integer> hitsDifference = searchResults.GetHitsDifference();
+            ArrayList<String> names = searchResults.GetNames();
+            ArrayList<Double> saccharideMasses = searchResults.GetSaccharideMasses();
+            ArrayList<Double> percentHits = searchResults.GetPercentHits();
+
+            //Display result for glycanSearch
+            SaccharideTableModel saccharideTableModel = new SaccharideTableModel(hitsDifference, names, saccharideMasses, percentHits);
+            jTable2.setModel(saccharideTableModel);
+            saccharideTableModel.fireTableDataChanged();
+
+            //Search and build graphs
+            extensiveGlycanSearch.search(spectraList, glycanMap);
+
+            //SearchResults for ExtensiveGlycanSarch
+            GlycanTableModel glycanTableModel = new GlycanTableModel(spectraList);
+            table.setModel(glycanTableModel);
+            glycanTableModel.fireTableDataChanged();
+
+            //           GraphInformation test = new GraphInformation();
+            //            File SpectraSuggestions = test.SpectraSuggestions();
+            //             GraphOutputSearch getGraphs = new GraphOutputSearch();
+            //            ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
+        } catch (IOException ex) {
+            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (MzMLUnmarshallerException ex) {
+            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GlycanSearcherFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_findGlycanButtonActionPerformed
+
+    private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
+        // Loads file and reutrns an ArrayList containing the spectra
+
+        JFileChooser chooser = new JFileChooser();
+
+        int returnVal = chooser.showOpenDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+
+            selectedFile = chooser.getSelectedFile();
+            filepath = chooser.getName(selectedFile);
+            fField.setText(filepath);
+            File currentDirectory = chooser.getCurrentDirectory();
+            String path = currentDirectory.getPath();
+
+            fileName = selectedFile.getName();
+
+        }
+
+
+    }//GEN-LAST:event_openActionPerformed
+
     private void fFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fFieldActionPerformed
-    
+
+    private void thresholdBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thresholdBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_thresholdBoxActionPerformed
+
+    private void sensitivityBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sensitivityBoxActionPerformed
+
+    }//GEN-LAST:event_sensitivityBoxActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser chooser2 = new JFileChooser();
+//        String savePath;
+
+        int returnVal2 = chooser2.showSaveDialog(null);
+        if (returnVal2 == JFileChooser.APPROVE_OPTION) {
+
+            File currentDirectory = chooser2.getCurrentDirectory();
+//            savePath = currentDirectory.getPath();
+           File f = chooser2.getSelectedFile();
+           outputFile = f.getAbsoluteFile();
+           savePath = outputFile.getAbsolutePath();
+            
+             
+//        dir.setText(chooser2.getCurrentDirectory().toString());
+            
+            saveFile = true;
+        }
+
+        System.out.println("test");
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -831,6 +865,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     private javax.swing.JPanel graphPanel1;
     private java.awt.Checkbox infoBox;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

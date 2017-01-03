@@ -15,7 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import no.probe.example.graphics.FileReaderDialog;
+import javax.swing.JFileChooser;
 import uk.ac.ebi.jmzml.xml.io.MzMLUnmarshallerException;
 
 /**
@@ -29,37 +29,33 @@ public class FileData {
     public static int peaks = 0;
     public static int relevantPeaks = 0;
     public static ArrayList<double[]> mzValues = new ArrayList();
-//    public static LinkedHashMap<double[], double[][]> spectraAndMzMap = new LinkedHashMap();
-
     SpectrumFactory spectrumFactory = SpectrumFactory.getInstance(100000);
-
     public static ArrayList<double[][]> spectraList = new ArrayList();
-
     MSnSpectrum spectrum;
     public static ArrayList<MSnSpectrum> glycoSpectrum = new ArrayList();
     public int nrOfSpectra = 0;
 
-    public FileData() {
-
-    }
-
     /**
-     * 
-     * 
-     * @param selectedFile
-     * @param fileName
-     * @param threshold
+     * This class extracts the spectra from the the mgf file, removes the peaks
+     * beneath a set threshold. This methodes does also
+     *
+     * @param savePath directory set by user to store output file
+     * @param selectedFile mgf file selected from the filechooser
+     * @param fileName name of the file
+     * @param threshold double value set by user
+     * @param saveFile is set true if user choose to save the output file
+     * @param outputFile
+     *
      * @return
      * @throws IOException
      * @throws FileNotFoundException
      * @throws ClassNotFoundException
-     * @throws MzMLUnmarshallerException 
+     * @throws MzMLUnmarshallerException
      */
-    public ArrayList<double[][]> GetSpectra(File selectedFile, String fileName, double threshold) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
+    public ArrayList<double[][]> GetSpectra(String savePath, File selectedFile, String fileName, double threshold, boolean saveFile, File outputFile) throws IOException, FileNotFoundException, ClassNotFoundException, MzMLUnmarshallerException {
 
         nrOfSpectra = 0;
-        
-        
+
         HexHexNacSearch test = new HexHexNacSearch();
         ArrayList<String> mgfGlycanSpectra = new ArrayList();
 
@@ -75,14 +71,12 @@ public class FileData {
 
         spectrumFactory.addSpectra(selectedFile);
 
-  
         int nrOfSpectraWithGlycan = 0;
 
         for (String spectrumTitle : spectrumFactory.getSpectrumTitles(fileName)) {
             nrOfSpectra = nrOfSpectra + 1;
 
             spectrum = (MSnSpectrum) spectrumFactory.getSpectrum(fileName, spectrumTitle);
-      
 
             String mgf = spectrum.asMgf();
 
@@ -129,14 +123,31 @@ public class FileData {
         System.out.println("nr of spectra = " + nrOfSpectra);
         System.out.println("nr of nr Of Spectra With Glycan = " + nrOfSpectraWithGlycan);
 
-        Path file = Paths.get("C:\\Users\\Probe\\Documents\\GlycoMS\\GlycanSpectra.mgf");
+        //Saves a file with spectra containing glycans if user has set a directory to save the file
+        if (saveFile == true) {
+            try {
+                File absoluteFile = outputFile.getAbsoluteFile();
 
-        Files.write(file, mgfGlycanSpectra, Charset.forName("UTF-8"));
+                File fileToSave = new File(absoluteFile.toString() + ".mgf");
 
-        return fileSpectra;
-    }
+                Path output = fileToSave.toPath();
 
-    public ArrayList<MSnSpectrum> GetGlyCoSpectrum() {
+                Files.write(output, mgfGlycanSpectra, Charset.forName("UTF-8"));
+            } catch (Exception e) {
+                System.out.println("Output File could not be saved");
+            }
+        }
+
+    
+
+    return fileSpectra ;
+}
+
+/*
+ *returns the list of spectrum with calculatable GGratio
+ *
+ */
+public ArrayList<MSnSpectrum> GetGlyCoSpectrum() {
 
         return glycoSpectrum;
 
