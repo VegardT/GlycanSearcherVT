@@ -16,6 +16,7 @@ import edu.uci.ics.jung.visualization.picking.PickedState;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Label;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -27,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import no.probe.example.calculation.ExtensiveGlycanSearch;
 import no.probe.example.calculation.GlycanSearch;
@@ -57,7 +59,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     public static File selectedFile;
 
     private boolean showVertexInfo;
-    
+
     private boolean saveFile = false;
     public File outputFile;
 
@@ -77,6 +79,8 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         initComponents();
         displayResults();
         setLocationRelativeTo(null);
+        setIcon();
+
     }
 
     public void displayResults() {
@@ -806,13 +810,11 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
             File currentDirectory = chooser2.getCurrentDirectory();
 //            savePath = currentDirectory.getPath();
-           File f = chooser2.getSelectedFile();
-           outputFile = f.getAbsoluteFile();
-           savePath = outputFile.getAbsolutePath();
-            
-             
+            File f = chooser2.getSelectedFile();
+            outputFile = f.getAbsoluteFile();
+            savePath = outputFile.getAbsolutePath();
+
 //        dir.setText(chooser2.getCurrentDirectory().toString());
-            
             saveFile = true;
         }
 
@@ -893,4 +895,9 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     private javax.swing.JTable table;
     private javax.swing.JComboBox thresholdBox;
     // End of variables declaration//GEN-END:variables
+
+    private void setIcon() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Probe\\Documents\\Koder\\GlycanSearcherVT\\src\\main\\java\\no\\probe\\example\\graphics\\icon.png"));
+//        setIconImage(Toolkit.getImage(getClass().getResource("icon.png")));
+    }
 }
