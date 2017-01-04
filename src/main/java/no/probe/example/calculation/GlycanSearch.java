@@ -28,7 +28,7 @@ public class GlycanSearch {
     public LinkedHashMap<Double, Integer> runSearch(ArrayList<double[][]> spectraList, double massMax, LinkedHashMap<String, Double> glycanMap, String saccharideList) throws IOException, MzMLUnmarshallerException {
 
         LinkedHashMap<Double, Integer> hitMap = null;
-        if (saccharideList.equals("Normal")) {
+        if (saccharideList.equals("Standard")) {
             hitMap = GlycanData.getHitMap();
         } else if (saccharideList.equals("Tagged")) {
             hitMap = GlycanData.getHitMapTagged();

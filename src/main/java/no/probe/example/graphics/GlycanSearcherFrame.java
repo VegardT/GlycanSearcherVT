@@ -700,10 +700,10 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         sensitivity = Double.parseDouble(sensitivityBox.getSelectedItem().toString()); //search parameter
         maxValue = Double.parseDouble(maxBox.getSelectedItem().toString());
         minValue = Double.parseDouble(minBox.getSelectedItem().toString()); //search parameter
-        LinkedHashMap<String, Double> glycanMap = null;
+        LinkedHashMap<String, Double> glycanMap = new LinkedHashMap();
 
         String saccharideList = saccharideListBox.getSelectedItem().toString();
-        if (saccharideList.equals("Normal")) {
+        if (saccharideList.equals("Standard")) {
             glycanMap = GlycanData.getMassGalMap();
         } else if (saccharideList.equals("Tagged")) {
             glycanMap = GlycanData.GetTaggedOxoniumIons();
