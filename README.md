@@ -1,1 +1,1 @@
-# GlycanSearcherVTpleas see https://github.com/VegardT/GlycanSearcherVT/wiki :-)
+Please see https://github.com/VegardT/GlycanSearcherVT/wiki 
