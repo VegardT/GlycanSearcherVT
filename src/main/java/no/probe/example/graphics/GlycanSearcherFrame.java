@@ -29,6 +29,8 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import no.probe.example.calculation.ExtensiveGlycanSearch;
 import no.probe.example.calculation.GlycanSearch;
 import no.probe.example.calculation.Graph;
@@ -770,6 +772,10 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         // Loads file and reutrns an ArrayList containing the spectra
 
         JFileChooser chooser = new JFileChooser();
+        
+        FileFilter filter = new FileNameExtensionFilter("MGF file", "mgf");
+        
+        chooser.addChoosableFileFilter(filter);
 
         int returnVal = chooser.showOpenDialog(null);
 
@@ -803,6 +809,8 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JFileChooser chooser2 = new JFileChooser();
 //        String savePath;
+        FileFilter filter = new FileNameExtensionFilter("MGF file", "mgf");
+        chooser2.addChoosableFileFilter(filter);
 
         int returnVal2 = chooser2.showSaveDialog(null);
         if (returnVal2 == JFileChooser.APPROVE_OPTION) {
