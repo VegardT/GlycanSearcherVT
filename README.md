@@ -1,2 +1,1 @@
-# GlycanSearcherVT
-Analytical software for Glycopeptides
+# GlycanSearcherVTpleas see https://github.com/VegardT/GlycanSearcherVT/wiki :-)
