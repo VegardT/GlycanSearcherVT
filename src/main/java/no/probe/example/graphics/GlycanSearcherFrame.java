@@ -29,6 +29,7 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import no.probe.example.calculation.ExtensiveGlycanSearch;
@@ -174,6 +175,12 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         jLabel3.setText("Nr of spectra in file");
 
         jLabel6.setText("Nr of glycan spectra");
+
+        GlcField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GlcFieldActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Nr of GalNAc");
 
@@ -663,27 +670,36 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tableKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SaccharideTableModel saccharideTableModel = new SaccharideTableModel();
-        jTable2.setModel(saccharideTableModel);
-        saccharideTableModel.fireTableDataChanged();
-        glycoField.setText("");
-        specField.setText("");
+
+        int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear anlysis?", "Close?", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            
+
+            SaccharideTableModel saccharideTableModel = new SaccharideTableModel();
+            jTable2.setModel(saccharideTableModel);
+            saccharideTableModel.fireTableDataChanged();
+            glycoField.setText("");
+            specField.setText("");
+            GlcField.setText("");
+            GalField.setText("");
+            
+                    
 
         //Search and build graphs
-        //SearchResults for ExtensiveGlycanSarch
-        GlycanTableModel glycanTableModel = new GlycanTableModel();
-        table.setModel(glycanTableModel);
-        glycanTableModel.fireTableDataChanged();
-        GraphOutputSearch getGraphs = new GraphOutputSearch();
+            //SearchResults for ExtensiveGlycanSarch
+            GlycanTableModel glycanTableModel = new GlycanTableModel();
+            table.setModel(glycanTableModel);
+            glycanTableModel.fireTableDataChanged();
+            GraphOutputSearch getGraphs = new GraphOutputSearch();
 
-        ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
-        graphs.clear();
+            ArrayList<DirectedGraph<String, Graph.GlycoEdge>> graphs = getGraphs.GetGlycanGraph();
+            graphs.clear();
 
-        spectraPanel.removeAll();
-        spectraPanel.repaint();
-        graphPanel1.removeAll();
-        graphPanel1.repaint();
-
+            spectraPanel.removeAll();
+            spectraPanel.repaint();
+            graphPanel1.removeAll();
+            graphPanel1.repaint();
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -772,10 +788,11 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
         // Loads file and reutrns an ArrayList containing the spectra
 
         JFileChooser chooser = new JFileChooser();
-        
+
         FileFilter filter = new FileNameExtensionFilter("MGF file", "mgf");
-        
+
         chooser.addChoosableFileFilter(filter);
+        chooser.setAcceptAllFileFilterUsed(false);
 
         int returnVal = chooser.showOpenDialog(null);
 
@@ -807,10 +824,13 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sensitivityBoxActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Saves the file
+
         JFileChooser chooser2 = new JFileChooser();
 //        String savePath;
         FileFilter filter = new FileNameExtensionFilter("MGF file", "mgf");
         chooser2.addChoosableFileFilter(filter);
+        chooser2.setAcceptAllFileFilterUsed(false);
 
         int returnVal2 = chooser2.showSaveDialog(null);
         if (returnVal2 == JFileChooser.APPROVE_OPTION) {
@@ -821,13 +841,15 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
             outputFile = f.getAbsoluteFile();
             savePath = outputFile.getAbsolutePath();
 
-//        dir.setText(chooser2.getCurrentDirectory().toString());
             saveFile = true;
         }
 
-        System.out.println("test");
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void GlcFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GlcFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GlcFieldActionPerformed
 
     /**
      * @param args the command line arguments
