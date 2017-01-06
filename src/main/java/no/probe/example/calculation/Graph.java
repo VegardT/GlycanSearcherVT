@@ -51,6 +51,8 @@ public class Graph {
         
         double maxMz = spectrum.getMaxMz();
         double precursorMass = precursor.getMass(Charge.value);
+        double mz = precursor.getMz();
+       
 
 //         double largestMass = (precursorMass - maxMz );
         

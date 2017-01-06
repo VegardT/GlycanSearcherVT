@@ -34,8 +34,7 @@ public class GlycanData {
 //        glycanMap.put("Hexose-OH ", 162.05282 - 17.0);
 //        glycanMap.put("Hexose-2H", 160.04);
 //        glycanMap.put("Hexose+H", 163.0);
-
-        glycanMap.put("Fucose", 146.0579 );
+        glycanMap.put("Fucose", 146.0579);
 
 //        glycanMap.put("GlcA", 176.0);
 //        glycanMap.put(" GalNac - 2H2O", 168.066);
@@ -69,7 +68,6 @@ public class GlycanData {
 //        glycanMap.put("HexHexNacOME", 383.337);
 ////        
 //        glycanMap.put("HexHexNAcNeuAc|", 657.2354);
-
         return glycanMap;
 
     }
@@ -147,19 +145,15 @@ public class GlycanData {
         taggedIons.put("tag-oxGal", 406.1643);
 //        taggedIons.put("Hex-HexNAc", 366.1395);
 //        taggedIons.put("ox-Gal-HexNAc", 364.1238);
-        taggedIons.put("oxNeu5Ac",230.0659);
+        taggedIons.put("oxNeu5Ac", 230.0659);
         taggedIons.put("tag-sugar fragment", 304.1326);
         taggedIons.put("HexNAc", 204.0866);
         taggedIons.put("oxGal", 161.0445);
-        
-        
-   
-        
+
         return taggedIons;
     }
-    
-    
-        public static LinkedHashMap<Double, Integer> getHitMapTagged() {
+
+    public static LinkedHashMap<Double, Integer> getHitMapTagged() {
 
         LinkedHashMap<String, Double> masses = GlycanData.GetTaggedOxoniumIons();
 
@@ -174,7 +168,6 @@ public class GlycanData {
         return hitMap;
 
     }
-    
 
     public static double[] getHexNacIonSeries() {
 

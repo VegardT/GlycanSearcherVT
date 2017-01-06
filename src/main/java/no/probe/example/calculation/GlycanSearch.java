@@ -25,6 +25,16 @@ public class GlycanSearch {
 
     }
 
+    /**
+     *
+     * @param spectraList list containing the spectra with glycans.
+     * @param massMax the highest delta so check if matches to a glycan mz. This is a parameter too reduce the search time by avoiding redundant calculations
+     * @param glycanMap HashMap containing string name and double corresponding to mz of saccharide
+     * @param saccharideList is the name of list of saccharides the user want to search for.
+     * @return returns hitmap. A Hashmap containing string with saccharide names and number of integers of hits
+     * @throws IOException
+     * @throws MzMLUnmarshallerException
+     */
     public LinkedHashMap<Double, Integer> runSearch(ArrayList<double[][]> spectraList, double massMax, LinkedHashMap<String, Double> glycanMap, String saccharideList) throws IOException, MzMLUnmarshallerException {
 
         LinkedHashMap<Double, Integer> hitMap = null;
