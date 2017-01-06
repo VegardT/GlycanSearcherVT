@@ -28,7 +28,6 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import no.probe.example.calculation.ExtensiveGlycanSearch;
 import no.probe.example.calculation.GlycanSearch;

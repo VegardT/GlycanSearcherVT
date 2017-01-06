@@ -10,18 +10,13 @@ import com.compomics.util.experiment.massspectrometry.MSnSpectrum;
 import com.compomics.util.experiment.massspectrometry.Precursor;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import no.probe.example.data.GlycanSearcherUtilities;
 import no.probe.example.data.GraphOutputSearch;
-import no.probe.example.graphics.FileReaderDialog;
 import no.probe.example.graphics.GlycanSearcherFrame;
-import org.jgrapht.GraphPath;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.DirectedGraph;
 import org.jgrapht.graph.ClassBasedEdgeFactory;
@@ -36,8 +31,18 @@ public class Graph {
     public Graph() {
 
     }
-
-
+    
+    /**
+     * Graphmaker creates a graph and maps the possible glycan fragments in the spectrum. 
+     * 
+     *
+     * @param spectra Double array containing the spectrum
+     * @param allDifferences list all found differences between peaks in the spectrum
+     * @param detectedMasses list of all single saccharide mz found in the spectrum
+     * @param detectedNames name of the saccharides found in the search
+     * @param spectrum complete spectrum and its data (such as charge, mz,intensity and id)
+     * @throws IOException
+     */
     public void GraphMaker6(double[][] spectra, HashSet<Double> allDifferences, LinkedHashSet<Double> detectedMasses, LinkedHashSet<String> detectedNames, MSnSpectrum spectrum) throws IOException {
 
         GlycanSearcherUtilities utilities = new GlycanSearcherUtilities();

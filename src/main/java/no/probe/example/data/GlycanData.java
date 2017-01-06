@@ -8,7 +8,11 @@ package no.probe.example.data;
 import java.util.LinkedHashMap;
 
 /**
- *
+ *This class stores the different lists and parameters which is necessary to perform the search for saccharides.
+ * there are several lists stored in hashmaps.
+ * 
+ * There are also stored atomic information and molecular information for saccharides.
+ * 
  * @author Probe
  */
 public class GlycanData {

@@ -26,6 +26,8 @@ public class GlycanSearch {
     }
 
     /**
+     * 
+     * GlycanSearch searches for a the saccharides from the list of saccharides choosen by the user.
      *
      * @param spectraList list containing the spectra with glycans.
      * @param massMax the highest delta so check if matches to a glycan mz. This is a parameter too reduce the search time by avoiding redundant calculations

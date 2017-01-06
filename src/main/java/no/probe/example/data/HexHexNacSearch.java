@@ -27,15 +27,15 @@ public class HexHexNacSearch {
 //
 //    }
     /**
-     * 
+     *
      */
-     
     public static ArrayList<double[]> massListWithGlycan = new ArrayList();
     public static HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 //    private HashMap<String, Integer> galNacGlcNacMap = new HashMap();
 
     /**
-     *Calculates ggRatio for the spectrum and stores the distribution of galNAc/glcNAc in a hashmap.
+     * Calculates ggRatio for the spectrum and stores the distribution of
+     * galNAc/glcNAc in a hashmap.
      *
      * @param dd is the double array containing the values of the spectrum
      * @return boolean corresponding to true if the GGratio is calculatable
@@ -146,7 +146,8 @@ public class HexHexNacSearch {
     }
 
     /**
-     * Calculates the GGratio for the spectrum and returns the a string with the name for the the suggested type of hexNAc
+     * Calculates the GGratio for the spectrum and returns the a string with the
+     * name for the the suggested type of hexNAc
      *
      * @param dd is the double array containing the values of the spectrum
      * @return hexHexNAc string of GalNAc or GlcNAc
