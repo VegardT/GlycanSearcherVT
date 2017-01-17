@@ -671,7 +671,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear anlysis?", "Close?", JOptionPane.YES_NO_OPTION);
+        int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear analysis?", "Close?", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
             
 
