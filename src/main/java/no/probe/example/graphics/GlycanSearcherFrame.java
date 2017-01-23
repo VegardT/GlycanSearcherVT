@@ -195,10 +195,10 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(specField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(glycoField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,7 +261,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
         fileJLabal.setText("File:");
 
-        open.setText("open");
+        open.setText("Open");
         open.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openActionPerformed(evt);
@@ -285,7 +285,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
         jLabel10.setText("m/z Tolerance");
 
-        jButton2.setText("Select output");
+        jButton2.setText("Select Output");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -405,7 +405,7 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
         infoBox.setLabel("Graph Information");
 
-        jButton1.setText("Clear Button");
+        jButton1.setText("Clear");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -673,7 +673,6 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
 
         int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear analysis?", "Close?", JOptionPane.YES_NO_OPTION);
         if (reply == JOptionPane.YES_OPTION) {
-            
 
             SaccharideTableModel saccharideTableModel = new SaccharideTableModel();
             jTable2.setModel(saccharideTableModel);
@@ -682,10 +681,8 @@ public class GlycanSearcherFrame extends javax.swing.JFrame {
             specField.setText("");
             GlcField.setText("");
             GalField.setText("");
-            
-                    
 
-        //Search and build graphs
+            //Search and build graphs
             //SearchResults for ExtensiveGlycanSarch
             GlycanTableModel glycanTableModel = new GlycanTableModel();
             table.setModel(glycanTableModel);
